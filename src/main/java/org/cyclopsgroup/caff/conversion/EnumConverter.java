@@ -23,7 +23,6 @@ public class EnumConverter<T extends Enum<T>>
     /**
      * @param enumType Type of enum to convert
      */
-    @SuppressWarnings( "unchecked" )
     public EnumConverter( Class<T> enumType )
     {
         boolean normalized = NormalizedValue.class.isAssignableFrom( enumType );
@@ -31,7 +30,7 @@ public class EnumConverter<T extends Enum<T>>
         Map<T, String> valueStrings = new HashMap<T, String>();
         for ( T e : EnumSet.allOf( enumType ) )
         {
-            String key = normalized ? ( (NormalizedValue) e ).getIdentifier().toString() : e.name();
+            String key = normalized ? ( (NormalizedValue<?>) e ).getIdentifier().toString() : e.name();
             stringValues.put( key, e );
             valueStrings.put( e, key );
         }

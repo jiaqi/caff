@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.cyclopsgroup.caff.CharIterator;
+import org.cyclopsgroup.caff.conversion.AnnotatedConverter;
 import org.cyclopsgroup.caff.conversion.Converter;
-import org.cyclopsgroup.caff.conversion.NullFriendlyAnnotatedConverter;
 import org.cyclopsgroup.caff.ref.ValueReference;
 import org.cyclopsgroup.caff.ref.ValueReferenceScanner;
 
@@ -72,8 +72,7 @@ class CSVImpl<T>
             public void handleReference( ValueReference<T> reference, CSVField field, AccessibleObject access )
             {
                 Slot slot =
-                    new Slot( reference,
-                              new NullFriendlyAnnotatedConverter<Object>( (Class<Object>) reference.getType(), access ) );
+                    new Slot( reference, new AnnotatedConverter<Object>( (Class<Object>) reference.getType(), access ) );
                 slots.put( field.position(), slot );
             }
         } );
@@ -124,7 +123,7 @@ class CSVImpl<T>
                 continue;
             }
             CharSequence value = slot.read( bean );
-            //TODO Consider truncation and double quote
+            // TODO Consider truncation and double quote
             out.write( value.toString() );
         }
     }

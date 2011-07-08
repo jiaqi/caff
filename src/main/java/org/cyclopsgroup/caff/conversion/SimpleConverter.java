@@ -44,30 +44,31 @@ public class SimpleConverter<T>
     /**
      * @param type Type of value to convert from/to
      */
-    @SuppressWarnings( "unchecked" )
+    @SuppressWarnings( { "unchecked", "rawtypes" } )
     public SimpleConverter( Class<T> type )
     {
         if ( type == null )
         {
             throw new NullPointerException( "Type can't be NULL" );
         }
+        Converter<T> p;
         if ( type == String.class )
         {
-            proxy = (Converter<T>) new StringConverter();
+            p = (Converter<T>) new StringConverter();
         }
         else if ( type == CharSequence.class )
         {
-            proxy = (Converter<T>) new CharSequenceConverter();
+            p = (Converter<T>) new CharSequenceConverter();
         }
         else if ( type == char[].class )
         {
-            proxy = (Converter<T>) new CharArrayConverter();
+            p = (Converter<T>) new CharArrayConverter();
         }
         else if ( type.isPrimitive() )
         {
             if ( PRIMITIVE_TYPES.containsKey( type ) )
             {
-                proxy = (Converter<T>) new SimpleReflectiveConverter( PRIMITIVE_TYPES.get( type ) );
+                p = (Converter<T>) new SimpleReflectiveConverter<T>( (Class<T>) PRIMITIVE_TYPES.get( type ) );
             }
             else
             {
@@ -76,11 +77,12 @@ public class SimpleConverter<T>
         }
         else if ( type.isEnum() )
         {
-            proxy = (Converter<T>) new EnumConverter( type );
+            p = (Converter<T>) new EnumConverter( type );
         }
         else
         {
-            proxy = (Converter<T>) new SimpleReflectiveConverter( type );
+            p = (Converter<T>) new SimpleReflectiveConverter<T>( type );
         }
+        this.proxy = new NullFriendlyConverter<T>( p );
     }
 }

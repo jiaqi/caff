@@ -1,7 +1,8 @@
 package org.cyclopsgroup.caff.conversion;
 
+import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.AccessibleObject;
+import java.lang.reflect.AnnotatedElement;
 
 /**
  * Converter that converts based on rules defined in annotation
@@ -20,39 +21,47 @@ public class AnnotatedConverter<T>
         {
             if ( annotation == null )
             {
-                throw new NullPointerException( "Input annotation can't be NULL" );
+                return new SimpleConverter<T>( type );
             }
             ConversionSupport support = annotation.annotationType().getAnnotation( ConversionSupport.class );
             if ( support == null )
             {
-                throw new IllegalArgumentException( "Annotation " + annotation + " is not annotated with "
+                throw new AssertionError( "Annotation " + annotation + " is not annotated with "
                     + ConversionSupport.class );
             }
             try
             {
-                return support.factoryType().newInstance().getConverterFor( type, annotation );
+                Converter<T> converter = support.factoryType().newInstance().getConverterFor( type, annotation );
+                return new NullFriendlyConverter<T>( converter );
             }
             catch ( InstantiationException e )
             {
-                throw new RuntimeException( "Can't create converter for " + annotation, e );
+                throw new IllegalStateException( "Can't create converter for " + annotation, e );
             }
             catch ( IllegalAccessException e )
             {
-                throw new RuntimeException( "Can't create converter for " + annotation, e );
+                throw new IllegalStateException( "Can't create converter for " + annotation, e );
             }
         }
 
-        private Builder<T> withAccess( AccessibleObject access )
+        private Builder<T> withAccess( AnnotatedElement... elements )
         {
-            for ( Annotation a : access.getAnnotations() )
+            for ( AnnotatedElement access : elements )
             {
-                if ( a.annotationType().isAnnotationPresent( ConversionSupport.class ) )
+                if ( access == null )
                 {
-                    annotation = a;
-                    return this;
+                    continue;
+                }
+                for ( Annotation a : access.getAnnotations() )
+                {
+                    if ( a.annotationType().isAnnotationPresent( ConversionSupport.class ) )
+                    {
+                        annotation = a;
+                        return this;
+                    }
                 }
             }
-            throw new IllegalArgumentException( "Access " + access + " isn't annotated with any conversion annotation" );
+            return this;
         }
 
         private Builder<T> withAnnotation( Annotation annotation )
@@ -62,42 +71,40 @@ public class AnnotatedConverter<T>
         }
     }
 
-    /**
-     * Verify if an access point marked as convertable
-     *
-     * @param access Accessible object to verify
-     * @return True if it's marked
-     */
-    public static boolean isConversionSupported( AccessibleObject access )
-    {
-        for ( Annotation a : access.getAnnotations() )
-        {
-            if ( a.annotationType().isAnnotationPresent( ConversionSupport.class ) )
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
     private final Converter<T> proxy;
 
     /**
+     * Constructor with an annotated element with annotations
+     *
      * @param type Type to convert from/to
      * @param access Access object where conversion annotation is placed
      */
-    public AnnotatedConverter( Class<T> type, AccessibleObject access )
+    public AnnotatedConverter( Class<T> type, AnnotatedElement... access )
     {
         this.proxy = new Builder<T>().withAccess( access ).toConverter( type );
     }
 
     /**
+     * Constructor with given Annotation
+     *
      * @param type Value type to convert from/to
      * @param annotation Annotation that defines conversion rule
      */
     public AnnotatedConverter( Class<T> type, Annotation annotation )
     {
         this.proxy = new Builder<T>().withAnnotation( annotation ).toConverter( type );
+    }
+
+    /**
+     * Constructor with a property descriptor
+     *
+     * @param type Type of value to convert
+     * @param descriptor Property descriptor
+     */
+    public AnnotatedConverter( Class<T> type, PropertyDescriptor descriptor )
+    {
+        this.proxy =
+            new Builder<T>().withAccess( descriptor.getReadMethod(), descriptor.getWriteMethod() ).toConverter( type );
     }
 
     /**

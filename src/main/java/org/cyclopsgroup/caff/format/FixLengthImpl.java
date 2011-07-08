@@ -6,8 +6,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.cyclopsgroup.caff.conversion.AnnotatedConverter;
 import org.cyclopsgroup.caff.conversion.Converter;
-import org.cyclopsgroup.caff.conversion.NullFriendlyAnnotatedConverter;
 import org.cyclopsgroup.caff.ref.ValueReference;
 import org.cyclopsgroup.caff.ref.ValueReferenceScanner;
 
@@ -65,8 +65,8 @@ class FixLengthImpl<T>
             public void handleReference( ValueReference<T> reference, FixLengthField hint, AccessibleObject access )
             {
                 Slot slot =
-                    new Slot( hint, new NullFriendlyAnnotatedConverter<Object>( (Class<Object>) reference.getType(),
-                                                                                access ), reference );
+                    new Slot( hint, new AnnotatedConverter<Object>( (Class<Object>) reference.getType(), access ),
+                              reference );
                 slots.put( reference.getName(), slot );
             }
         } );
@@ -90,8 +90,8 @@ class FixLengthImpl<T>
                 continue;
             }
             CharSequence content =
-                input.subSequence( slot.field.start(), Math.min( slot.field.start() + slot.field.length(),
-                                                                 input.length() ) );
+                input.subSequence( slot.field.start(),
+                                   Math.min( slot.field.start() + slot.field.length(), input.length() ) );
             content = slot.field.align().trim( content, slot.fill );
             Object value = slot.converter.fromCharacters( content );
             slot.reference.writeValue( value, bean );
