@@ -17,5 +17,5 @@ public @interface ConversionSupport
     /**
      * @return Type of converter factory that manages converter
      */
-    Class<? extends ConverterFactory> factoryType();
+    Class<? extends ConverterFactory<?>> factoryType();
 }

@@ -6,7 +6,7 @@ package org.cyclopsgroup.caff.conversion;
  * @author <a href="mailto:jiaqi@cyclopsgroup.org">Jiaqi Guo</a>
  */
 public class BooleanConverterFactory
-    implements ConverterFactory
+    implements ConverterFactory<Boolean>
 {
     private static class BooleanConverter
         implements Converter<Boolean>
@@ -38,9 +38,8 @@ public class BooleanConverterFactory
     /**
      * @inheritDoc
      */
-    @SuppressWarnings( "unchecked" )
-    public <T> Converter<T> getConverterFor( Class<T> valueType, Object hint )
+    public Converter<Boolean> getConverterFor( Class<Boolean> valueType, Object hint )
     {
-        return (Converter<T>) new BooleanConverter( (BooleanField) hint );
+        return new BooleanConverter( (BooleanField) hint );
     }
 }

@@ -17,6 +17,7 @@ public class AnnotatedConverter<T>
     {
         private Annotation annotation;
 
+        @SuppressWarnings( "unchecked" )
         private Converter<T> toConverter( Class<T> type )
         {
             if ( annotation == null )
@@ -31,7 +32,8 @@ public class AnnotatedConverter<T>
             }
             try
             {
-                Converter<T> converter = support.factoryType().newInstance().getConverterFor( type, annotation );
+                ConverterFactory<T> factory = (ConverterFactory<T>) support.factoryType().newInstance();
+                Converter<T> converter = factory.getConverterFor( type, annotation );
                 return new NullFriendlyConverter<T>( converter );
             }
             catch ( InstantiationException e )

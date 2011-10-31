@@ -8,7 +8,7 @@ import java.util.Date;
  * @author <a href="mailto:jiaqi@cyclopsgroup.org">Jiaqi Guo</a>
  */
 public class DateConverterFactory
-    implements ConverterFactory
+    implements ConverterFactory<Date>
 {
     private class DateConverter
         implements Converter<Date>
@@ -44,14 +44,9 @@ public class DateConverterFactory
     /**
      * @inheritDoc
      */
-    @SuppressWarnings( "unchecked" )
-    public <T> Converter<T> getConverterFor( Class<T> valueType, Object hint )
+    public Converter<Date> getConverterFor( Class<Date> valueType, Object hint )
     {
         String format = ( (DateField) hint ).format();
-        if ( valueType == Date.class )
-        {
-            return (Converter<T>) new DateConverter( format );
-        }
-        throw new IllegalStateException( "Type " + valueType + " is not allowed" );
+        return new DateConverter( format );
     }
 }
