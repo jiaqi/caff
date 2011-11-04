@@ -7,7 +7,7 @@
     </bannerLeft>
     <bannerRight>
         <src>
-            http://cyclops-group.sourceforge.net/wiki/images/cyclopsgroup-logo.png
+            http://www.cyclopsgroup.org/wiki/images/cyclopsgroup-logo.png
         </src>
     </bannerRight>
     <body>
@@ -25,22 +25,10 @@
         <links>
             <item name="wiki site" href="http://wiki.cyclopsgroup.org/caff" />
             <item name="cyclopsgroup.org" href="http://www.cyclopsgroup.org/" />
-            <item name="sf.net/cyclops-group"
-                href="http://sourceforge.net/projects/cyclops-group" />
         </links>
         <menu name="Introduction">
             <item name="Home" href="index.html" />
         </menu>
         <menu ref="reports" />
-        <menu name="Source code">
-            <item name="Browse Fisheye"
-                href="http://fisheye3.atlassian.com/browse/cyclops-group/caff" />
-            <item name="Search Fisheye"
-                href="http://fisheye3.atlassian.com/search/cyclops-group/caff" />
-            <item name="Change Log"
-                href="http://fisheye3.atlassian.com/changelog/cyclops-group/caff" />
-            <item name="Activity Chart"
-                href="http://fisheye3.atlassian.com/chart/cyclops-group/caff" />
-        </menu>
     </body>
 </project>

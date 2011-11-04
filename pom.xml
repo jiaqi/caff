@@ -41,7 +41,7 @@
     <scm>
         <connection>scm:git:git@github.com:jiaqi/caff.git</connection>
         <developerConnection>scm:git:git@github.com:jiaqi/caff.git</developerConnection>
-        <url>git@github.com:jiaqi/caff.git</url>
+        <url>https://github.com/jiaqi/caff</url>
     </scm>
     <distributionManagement>
         <site>
