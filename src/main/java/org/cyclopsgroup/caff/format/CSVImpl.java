@@ -15,7 +15,7 @@ import org.cyclopsgroup.caff.ref.ValueReferenceScanner;
 
 /**
  * Internal class that really does CSV format and parsing
- *
+ * 
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  * @param <T> Type of bean to convert from/to
  */
@@ -25,12 +25,16 @@ class CSVImpl<T>
     {
         private final Converter<Object> converter;
 
+        private final CSVField fieldAnnotation;
+
         private final ValueReference<T> reference;
 
-        private Slot( ValueReference<T> reference, Converter<Object> converter )
+        private Slot( ValueReference<T> reference, Converter<Object> converter,
+                      CSVField fieldAnnotation )
         {
             this.reference = reference;
             this.converter = converter;
+            this.fieldAnnotation = fieldAnnotation;
         }
 
         private CharSequence read( T bean )
@@ -44,6 +48,8 @@ class CSVImpl<T>
         }
     }
 
+    private static final char QUOTE = '"';
+
     private final int fields;
 
     private final Map<Integer, Slot> slots;
@@ -56,26 +62,37 @@ class CSVImpl<T>
         CSVType typeAnnotation = beanType.getAnnotation( CSVType.class );
         if ( typeAnnotation == null )
         {
-            throw new IllegalArgumentException( "Type " + beanType + " isn't annotated with " + CSVType.class );
+            throw new IllegalArgumentException( "Type " + beanType
+                + " isn't annotated with " + CSVType.class );
         }
         fields = typeAnnotation.fields();
         if ( fields <= 0 )
         {
-            throw new IllegalArgumentException( "Type " + beanType + " defines invalid number of CSV fields: " + fields );
+            throw new IllegalArgumentException( "Type " + beanType
+                + " defines invalid number of CSV fields: " + fields );
         }
-        ValueReferenceScanner<T> scanner = new ValueReferenceScanner<T>( beanType );
+        ValueReferenceScanner<T> scanner =
+            new ValueReferenceScanner<T>( beanType );
 
         final Map<Integer, Slot> slots = new HashMap<Integer, Slot>();
-        scanner.scanForAnnotation( CSVField.class, new ValueReferenceScanner.Listener<T, CSVField>()
-        {
-            @SuppressWarnings( "unchecked" )
-            public void handleReference( ValueReference<T> reference, CSVField field, AccessibleObject access )
-            {
-                Slot slot =
-                    new Slot( reference, new AnnotatedConverter<Object>( (Class<Object>) reference.getType(), access ) );
-                slots.put( field.position(), slot );
-            }
-        } );
+        scanner.scanForAnnotation( CSVField.class,
+                                   new ValueReferenceScanner.Listener<T, CSVField>()
+                                   {
+                                       @SuppressWarnings( "unchecked" )
+                                       public void handleReference( ValueReference<T> reference,
+                                                                    CSVField field,
+                                                                    AccessibleObject access )
+                                       {
+                                           Slot slot =
+                                               new Slot(
+                                                         reference,
+                                                         new AnnotatedConverter<Object>(
+                                                                                         (Class<Object>) reference.getType(),
+                                                                                         access ),
+                                                         field );
+                                           slots.put( field.position(), slot );
+                                       }
+                                   } );
         this.slots = Collections.unmodifiableMap( slots );
     }
 
@@ -122,9 +139,27 @@ class CSVImpl<T>
             {
                 continue;
             }
-            CharSequence value = slot.read( bean );
-            // TODO Consider truncation and double quote
-            out.write( value.toString() );
+            String value = slot.read( bean ).toString();
+
+            boolean quoteRequired = slot.fieldAnnotation.alwaysQuote();
+            if ( value.indexOf( QUOTE ) > -1 )
+            {
+                quoteRequired = true;
+                value =
+                    value.toString().replaceAll( "" + QUOTE, "" + QUOTE + QUOTE );
+            }
+            if ( quoteRequired )
+            {
+                out.write( QUOTE );
+                out.write( value );
+                out.write( QUOTE );
+            }
+            else
+            {
+                out.write( value );
+            }
+
+            // TODO Consider truncation
         }
     }
 }
