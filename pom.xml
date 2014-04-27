@@ -44,7 +44,7 @@
     </scm>
     <distributionManagement>
         <site>
-            <id>cyclopsgroup.server.sourceforge</id>
+            <id>cyclopsgroup.server</id>
             <url>
                 s3://www2.cyclopsgroup.org/projects/caff
             </url>
