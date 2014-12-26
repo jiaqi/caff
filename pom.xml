@@ -5,11 +5,11 @@
     <parent>
         <groupId>org.cyclopsgroup</groupId>
         <artifactId>cyclopsgroup-java-parent</artifactId>
-        <version>0.5</version>
+        <version>0.6</version>
     </parent>
     <artifactId>caff</artifactId>
     <name>caff</name>
-    <version>0.4.0</version>
+    <version>0.4.1-SNAPSHOT</version>
     <description>Java conversion and formatting framework</description>
     <url>http://www.cyclopsgroup.org/projects/caff</url>
     <dependencies>
