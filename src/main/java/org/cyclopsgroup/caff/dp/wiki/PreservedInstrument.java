@@ -3,9 +3,9 @@ package org.cyclopsgroup.caff.dp.wiki;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.cyclopsgroup.caff.dp.Instrument;
 
 public class PreservedInstrument
@@ -34,10 +34,10 @@ public class PreservedInstrument
         if ( text.startsWith( PREFIX ) )
         {
             text =
-                SystemUtils.LINE_SEPARATOR
+                System.lineSeparator()
                     + StringUtils.removeStart( text, PREFIX );
         }
-        StringEscapeUtils.escapeHtml( out, text );
+        StringEscapeUtils.ESCAPE_HTML4.translate( text, out );
     }
 
     @Override
