@@ -2,7 +2,7 @@ package org.cyclopsgroup.caff.dp.wiki;
 
 import java.io.PrintWriter;
 
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.cyclopsgroup.caff.dp.Instrument;
 
 public class ParagraphInstrument
@@ -33,7 +33,7 @@ public class ParagraphInstrument
     @Override
     public int close( String segment, PrintWriter out )
     {
-        out.write( "</p>" + SystemUtils.LINE_SEPARATOR );
+        out.write( "</p>" + System.lineSeparator() );
         return LINE_START.length();
     }
 

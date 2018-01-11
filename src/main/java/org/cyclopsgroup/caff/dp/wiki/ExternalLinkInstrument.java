@@ -2,7 +2,7 @@ package org.cyclopsgroup.caff.dp.wiki;
 
 import java.io.PrintWriter;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.cyclopsgroup.caff.dp.Instrument;
 
 public class ExternalLinkInstrument
