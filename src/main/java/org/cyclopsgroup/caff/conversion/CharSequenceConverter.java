@@ -5,22 +5,14 @@ package org.cyclopsgroup.caff.conversion;
  *
  * @author <a href="mailto:jiaqi@cyclopsgroup.org">Jiaqi Guo</a>
  */
-public class CharSequenceConverter
-    implements Converter<CharSequence>
-{
-    /**
-     * @inheritDoc
-     */
-    public CharSequence fromCharacters( CharSequence text )
-    {
-        return text;
-    }
+public class CharSequenceConverter implements Converter<CharSequence> {
+  @Override
+  public CharSequence fromCharacters(CharSequence text) {
+    return text;
+  }
 
-    /**
-     * @inheritDoc
-     */
-    public CharSequence toCharacters( CharSequence value )
-    {
-        return value;
-    }
+  @Override
+  public CharSequence toCharacters(CharSequence value) {
+    return value;
+  }
 }

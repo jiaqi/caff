@@ -11,30 +11,24 @@ import org.cyclopsgroup.caff.dp.DummyInstrument;
 import org.cyclopsgroup.caff.dp.Instrument;
 import org.cyclopsgroup.caff.dp.InstrumentedDocumentProcessor;
 
-public class WikiDocumentProcessor
-    implements DocumentProcessor
-{
-    private final DocumentProcessor proc;
+public class WikiDocumentProcessor implements DocumentProcessor {
+  private final DocumentProcessor proc;
 
-    public WikiDocumentProcessor()
-    {
-        List<Instrument> instruments = new ArrayList<Instrument>();
-        instruments.add( new ParagraphInstrument() );
-        instruments.add( new ExternalLinkInstrument() );
-        instruments.add( new PreservedInstrument() );
-        instruments.add( new ListInstrument() );
-        for ( int i = 5; i > 0; i-- )
-        {
-            instruments.add( new HeadingInstrument( i ) );
-        }
-        instruments.add( new DummyInstrument() );
-        this.proc = new InstrumentedDocumentProcessor( instruments );
+  public WikiDocumentProcessor() {
+    List<Instrument> instruments = new ArrayList<Instrument>();
+    instruments.add(new ParagraphInstrument());
+    instruments.add(new ExternalLinkInstrument());
+    instruments.add(new PreservedInstrument());
+    instruments.add(new ListInstrument());
+    for (int i = 5; i > 0; i--) {
+      instruments.add(new HeadingInstrument(i));
     }
+    instruments.add(new DummyInstrument());
+    this.proc = new InstrumentedDocumentProcessor(instruments);
+  }
 
-    @Override
-    public void process( Reader input, Writer output )
-        throws IOException
-    {
-        proc.process( input, output );
-    }
+  @Override
+  public void process(Reader input, Writer output) throws IOException {
+    proc.process(input, output);
+  }
 }

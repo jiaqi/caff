@@ -7,29 +7,17 @@ import java.io.IOException;
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class CSVFormatCharSequenceTest
-    extends AbstractCSVTestCase
-{
-    private Format<CSVBean> format = Formats.newCSVFormat( CSVBean.class );
+public class CSVFormatCharSequenceTest extends AbstractCSVTestCase {
+  private Format<CSVBean> format = Formats.newCSVFormat(CSVBean.class);
 
-    /**
-     * @inheritDoc
-     */
-    @Override
-    protected CSVBean fromString( String string )
-        throws IOException
-    {
-        return format.parse( string );
-    }
+  @Override
+  protected CSVBean fromString(String string) throws IOException {
+    return format.parse(string);
+  }
 
-    /**
-     * @inheritDoc
-     */
-    @Override
-    protected String toString( CSVBean bean )
-        throws IOException
-    {
-        return format.formatToString( bean );
-    }
+  @Override
+  protected String toString(CSVBean bean) throws IOException {
+    return format.formatToString(bean);
+  }
 
 }

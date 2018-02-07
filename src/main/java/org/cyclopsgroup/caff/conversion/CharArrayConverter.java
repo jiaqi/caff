@@ -7,22 +7,14 @@ import org.cyclopsgroup.caff.CharArrayCharSequence;
  *
  * @author <a href="mailto:jiaqi@cyclopsgroup.org">Jiaqi Guo</a>
  */
-public class CharArrayConverter
-    implements Converter<char[]>
-{
-    /**
-     * @inheritDoc
-     */
-    public char[] fromCharacters( CharSequence text )
-    {
-        return CharArrayCharSequence.sequenceToArray( text );
-    }
+public class CharArrayConverter implements Converter<char[]> {
+  @Override
+  public char[] fromCharacters(CharSequence text) {
+    return CharArrayCharSequence.sequenceToArray(text);
+  }
 
-    /**
-     * @inheritDoc
-     */
-    public CharSequence toCharacters( char[] value )
-    {
-        return new CharArrayCharSequence( value );
-    }
+  @Override
+  public CharSequence toCharacters(char[] value) {
+    return new CharArrayCharSequence(value);
+  }
 }

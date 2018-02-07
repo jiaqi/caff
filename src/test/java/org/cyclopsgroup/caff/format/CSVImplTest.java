@@ -10,32 +10,20 @@ import org.cyclopsgroup.caff.CharIterator;
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class CSVImplTest
-    extends AbstractCSVTestCase
-{
-    private final CSVImpl<CSVBean> impl = new CSVImpl<CSVBean>( CSVBean.class );
+public class CSVImplTest extends AbstractCSVTestCase {
+  private final CSVImpl<CSVBean> impl = new CSVImpl<CSVBean>(CSVBean.class);
 
-    /**
-     * @inheritDoc
-     */
-    @Override
-    protected CSVBean fromString( String string )
-        throws IOException
-    {
-        CSVBean bean = new CSVBean();
-        impl.populate( bean, CharIterator.instanceOf( string ) );
-        return bean;
-    }
+  @Override
+  protected CSVBean fromString(String string) throws IOException {
+    CSVBean bean = new CSVBean();
+    impl.populate(bean, CharIterator.instanceOf(string));
+    return bean;
+  }
 
-    /**
-     * @inheritDoc
-     */
-    @Override
-    protected String toString( CSVBean bean )
-        throws IOException
-    {
-        StringWriter out = new StringWriter();
-        impl.print( bean, out );
-        return out.toString();
-    }
+  @Override
+  protected String toString(CSVBean bean) throws IOException {
+    StringWriter out = new StringWriter();
+    impl.print(bean, out);
+    return out.toString();
+  }
 }

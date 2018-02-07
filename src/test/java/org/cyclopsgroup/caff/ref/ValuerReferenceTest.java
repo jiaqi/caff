@@ -10,37 +10,26 @@ import org.cyclopsgroup.caff.ABean;
 import org.junit.Test;
 
 /**
- * Test case of {@link ValueReference}
- *
- * @author jiaqi
+ * Test case of {@link ValueReference}.
  */
-public class ValuerReferenceTest
-{
-    /**
-     * Verify creation of {@link FieldValueRefernce}
-     *
-     * @throws Exception Allows any exception
-     */
-    @Test
-    public void testInstanceOfWithField()
-        throws Exception
-    {
-        Field field = ABean.class.getField( "lastName" );
-        ValueReference<ABean> fieldRef = ValueReference.instanceOf( field );
-        assertTrue( fieldRef instanceof FieldValueReference );
-    }
+public class ValuerReferenceTest {
+  /**
+   * Verifies creation of field referrence.
+   */
+  @Test
+  public void testInstanceOfWithField() throws Exception {
+    Field field = ABean.class.getField("lastName");
+    ValueReference<ABean> fieldRef = ValueReference.instanceOf(field);
+    assertTrue(fieldRef instanceof FieldValueReference);
+  }
 
-    /**
-     * Verify creation of {@link PropertyValuereference}
-     *
-     * @throws Exception Allowed any exception
-     */
-    @Test
-    public void testInstanceOfWithProperty()
-        throws Exception
-    {
-        PropertyDescriptor desc = PropertyUtils.getPropertyDescriptor( new ABean(), "age" );
-        ValueReference<ABean> propRef = ValueReference.instanceOf( desc );
-        assertTrue( propRef instanceof PropertyValueReference );
-    }
+  /**
+   * Verifies the creation of property reference.
+   */
+  @Test
+  public void testInstanceOfWithProperty() throws Exception {
+    PropertyDescriptor desc = PropertyUtils.getPropertyDescriptor(new ABean(), "age");
+    ValueReference<ABean> propRef = ValueReference.instanceOf(desc);
+    assertTrue(propRef instanceof PropertyValueReference);
+  }
 }

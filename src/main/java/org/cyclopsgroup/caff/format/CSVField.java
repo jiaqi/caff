@@ -12,22 +12,22 @@ import java.lang.annotation.Target;
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 @Documented
-@Retention( RetentionPolicy.RUNTIME )
-@Target( { ElementType.FIELD, ElementType.METHOD } )
-public @interface CSVField
-{
-    /**
-     * @return Always wrap value with double quots
-     */
-    boolean alwaysQuote() default false;
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.METHOD})
+public @interface CSVField {
+  /**
+   * @return Always wrap value with double quots
+   */
+  boolean alwaysQuote() default false;
 
-    /**
-     * @return Max number of characters the field can contain. Default value is -1 which means field length is unlimited
-     */
-    int maxLength() default -1;
+  /**
+   * @return Max number of characters the field can contain. Default value is -1 which means field
+   *         length is unlimited
+   */
+  int maxLength() default -1;
 
-    /**
-     * @return Zero based position of field
-     */
-    int position();
+  /**
+   * @return Zero based position of field
+   */
+  int position();
 }

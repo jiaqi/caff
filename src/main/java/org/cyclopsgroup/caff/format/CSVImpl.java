@@ -19,147 +19,113 @@ import org.cyclopsgroup.caff.ref.ValueReferenceScanner;
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  * @param <T> Type of bean to convert from/to
  */
-class CSVImpl<T>
-{
-    private class Slot
-    {
-        private final Converter<Object> converter;
+class CSVImpl<T> {
+  private class Slot {
+    private final Converter<Object> converter;
 
-        private final CSVField fieldAnnotation;
+    private final CSVField fieldAnnotation;
 
-        private final ValueReference<T> reference;
+    private final ValueReference<T> reference;
 
-        private Slot( ValueReference<T> reference, Converter<Object> converter,
-                      CSVField fieldAnnotation )
-        {
-            this.reference = reference;
-            this.converter = converter;
-            this.fieldAnnotation = fieldAnnotation;
-        }
-
-        private CharSequence read( T bean )
-        {
-            return converter.toCharacters( reference.readValue( bean ) );
-        }
-
-        private void write( T bean, CharSequence value )
-        {
-            reference.writeValue( converter.fromCharacters( value ), bean );
-        }
+    private Slot(ValueReference<T> reference, Converter<Object> converter,
+        CSVField fieldAnnotation) {
+      this.reference = reference;
+      this.converter = converter;
+      this.fieldAnnotation = fieldAnnotation;
     }
 
-    private static final char QUOTE = '"';
-
-    private final int fields;
-
-    private final Map<Integer, Slot> slots;
-
-    /**
-     * @param beanType Type of bean to parse or format
-     */
-    CSVImpl( final Class<T> beanType )
-    {
-        CSVType typeAnnotation = beanType.getAnnotation( CSVType.class );
-        if ( typeAnnotation == null )
-        {
-            throw new IllegalArgumentException( "Type " + beanType
-                + " isn't annotated with " + CSVType.class );
-        }
-        fields = typeAnnotation.fields();
-        if ( fields <= 0 )
-        {
-            throw new IllegalArgumentException( "Type " + beanType
-                + " defines invalid number of CSV fields: " + fields );
-        }
-        ValueReferenceScanner<T> scanner =
-            new ValueReferenceScanner<T>( beanType );
-
-        final Map<Integer, Slot> slots = new HashMap<Integer, Slot>();
-        scanner.scanForAnnotation( CSVField.class,
-                                   new ValueReferenceScanner.Listener<T, CSVField>()
-                                   {
-                                       @SuppressWarnings( "unchecked" )
-                                       public void handleReference( ValueReference<T> reference,
-                                                                    CSVField field,
-                                                                    AccessibleObject access )
-                                       {
-                                           Slot slot =
-                                               new Slot(
-                                                         reference,
-                                                         new AnnotatedConverter<Object>(
-                                                                                         (Class<Object>) reference.getType(),
-                                                                                         access ),
-                                                         field );
-                                           slots.put( field.position(), slot );
-                                       }
-                                   } );
-        this.slots = Collections.unmodifiableMap( slots );
+    private CharSequence read(T bean) {
+      return converter.toCharacters(reference.readValue(bean));
     }
 
-    /**
-     * @param bean Bean to parse
-     * @param in Char iterator of input
-     * @throws IOException If IO writing fails
-     */
-    void populate( final T bean, CharIterator in )
-        throws IOException
-    {
-        CSVParser parser = new CSVParser()
-        {
-            @Override
-            protected void handleField( int position, CharSequence content )
-                throws IOException
-            {
-                Slot slot = slots.get( position );
-                if ( slot != null )
-                {
-                    slot.write( bean, content );
-                }
-            }
-        };
-        parser.parse( in );
+    private void write(T bean, CharSequence value) {
+      reference.writeValue(converter.fromCharacters(value), bean);
     }
+  }
 
-    /**
-     * @param bean Bean to format
-     * @param out Output writer
-     * @throws IOException If writing fails
-     */
-    void print( T bean, Writer out )
-        throws IOException
-    {
-        for ( int i = 0; i < fields; i++ )
-        {
-            if ( i != 0 )
-            {
-                out.write( ',' );
-            }
-            Slot slot = slots.get( i );
-            if ( slot == null )
-            {
-                continue;
-            }
-            String value = slot.read( bean ).toString();
+  private static final char QUOTE = '"';
 
-            boolean quoteRequired = slot.fieldAnnotation.alwaysQuote();
-            if ( value.indexOf( QUOTE ) > -1 )
-            {
-                quoteRequired = true;
-                value =
-                    value.toString().replaceAll( "" + QUOTE, "" + QUOTE + QUOTE );
-            }
-            if ( quoteRequired )
-            {
-                out.write( QUOTE );
-                out.write( value );
-                out.write( QUOTE );
-            }
-            else
-            {
-                out.write( value );
-            }
+  private final int fields;
 
-            // TODO Consider truncation
+  private final Map<Integer, Slot> slots;
+
+  /**
+   * @param beanType Type of bean to parse or format
+   */
+  CSVImpl(final Class<T> beanType) {
+    CSVType typeAnnotation = beanType.getAnnotation(CSVType.class);
+    if (typeAnnotation == null) {
+      throw new IllegalArgumentException(
+          "Type " + beanType + " isn't annotated with " + CSVType.class);
+    }
+    fields = typeAnnotation.fields();
+    if (fields <= 0) {
+      throw new IllegalArgumentException(
+          "Type " + beanType + " defines invalid number of CSV fields: " + fields);
+    }
+    ValueReferenceScanner<T> scanner = new ValueReferenceScanner<T>(beanType);
+
+    final Map<Integer, Slot> slots = new HashMap<Integer, Slot>();
+    scanner.scanForAnnotation(CSVField.class, new ValueReferenceScanner.Listener<T, CSVField>() {
+      @SuppressWarnings("unchecked")
+      public void handleReference(ValueReference<T> reference, CSVField field,
+          AccessibleObject access) {
+        Slot slot = new Slot(reference,
+            new AnnotatedConverter<Object>((Class<Object>) reference.getType(), access), field);
+        slots.put(field.position(), slot);
+      }
+    });
+    this.slots = Collections.unmodifiableMap(slots);
+  }
+
+  /**
+   * @param bean Bean to parse
+   * @param in Char iterator of input
+   * @throws IOException If IO writing fails
+   */
+  void populate(final T bean, CharIterator in) throws IOException {
+    CSVParser parser = new CSVParser() {
+      @Override
+      protected void handleField(int position, CharSequence content) throws IOException {
+        Slot slot = slots.get(position);
+        if (slot != null) {
+          slot.write(bean, content);
         }
+      }
+    };
+    parser.parse(in);
+  }
+
+  /**
+   * @param bean Bean to format
+   * @param out Output writer
+   * @throws IOException If writing fails
+   */
+  void print(T bean, Writer out) throws IOException {
+    for (int i = 0; i < fields; i++) {
+      if (i != 0) {
+        out.write(',');
+      }
+      Slot slot = slots.get(i);
+      if (slot == null) {
+        continue;
+      }
+      String value = slot.read(bean).toString();
+
+      boolean quoteRequired = slot.fieldAnnotation.alwaysQuote();
+      if (value.indexOf(QUOTE) > -1) {
+        quoteRequired = true;
+        value = value.toString().replaceAll("" + QUOTE, "" + QUOTE + QUOTE);
+      }
+      if (quoteRequired) {
+        out.write(QUOTE);
+        out.write(value);
+        out.write(QUOTE);
+      } else {
+        out.write(value);
+      }
+
+      // TODO Consider truncation
     }
+  }
 }

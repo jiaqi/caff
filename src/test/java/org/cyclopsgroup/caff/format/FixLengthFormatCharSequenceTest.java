@@ -9,29 +9,17 @@ import org.cyclopsgroup.caff.ABean;
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class FixLengthFormatCharSequenceTest
-    extends AbstractFixLengthTestCase
-{
-    private Format<ABean> format = Formats.newFixLengthFormat( ABean.class );
+public class FixLengthFormatCharSequenceTest extends AbstractFixLengthTestCase {
+  private Format<ABean> format = Formats.newFixLengthFormat(ABean.class);
 
-    /**
-     * @inheritDoc
-     */
-    @Override
-    protected ABean fromString( String string )
-        throws IOException
-    {
-        return format.parse( string );
-    }
+  @Override
+  protected ABean fromString(String string) throws IOException {
+    return format.parse(string);
+  }
 
-    /**
-     * @inheritDoc
-     */
-    @Override
-    protected String toString( ABean bean )
-        throws IOException
-    {
-        return format.formatToString( bean );
-    }
+  @Override
+  protected String toString(ABean bean) throws IOException {
+    return format.formatToString(bean);
+  }
 
 }

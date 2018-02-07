@@ -12,13 +12,12 @@ import java.lang.annotation.Target;
  * @author <a href="mailto:jiaqi@cyclopsgroup.org">Jiaqi Guo</a>
  */
 @Documented
-@Retention( RetentionPolicy.RUNTIME )
-@Target( { ElementType.FIELD, ElementType.METHOD } )
-@ConversionSupport( factoryType = DateConverterFactory.class )
-public @interface DateField
-{
-    /**
-     * @return Simple date format of date syntax
-     */
-    String format() default "yyyy-MM-dd'T'HH:mm:ss.SSS";
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.METHOD})
+@ConversionSupport(factoryType = DateConverterFactory.class)
+public @interface DateField {
+  /**
+   * @return Simple date format of date syntax
+   */
+  String format() default "yyyy-MM-dd'T'HH:mm:ss.SSS";
 }

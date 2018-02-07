@@ -9,15 +9,13 @@ import org.junit.Test;
  * 
  * @author jiaqi
  */
-public class TrimPolicyTest
-{
-    /**
-     * Verify trim method
-     */
-    @Test
-    public void testTrimForward()
-    {
-        assertEquals("abcd", TrimPolicy.FORWARD.trim("abcde", 4, AlignPolicy.LEFT));
-        assertEquals("bcde", TrimPolicy.FORWARD.trim("abcde", 4, AlignPolicy.RIGHT));
-    }
+public class TrimPolicyTest {
+  /**
+   * Verify trim method
+   */
+  @Test
+  public void testTrimForward() {
+    assertEquals("abcd", TrimPolicy.FORWARD.trim("abcde", 4, AlignPolicy.LEFT));
+    assertEquals("bcde", TrimPolicy.FORWARD.trim("abcde", 4, AlignPolicy.RIGHT));
+  }
 }

@@ -9,17 +9,15 @@ import org.junit.Test;
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class CharArrayConverterTest
-{
-    /**
-     * Verify two way conversion
-     */
-    @Test
-    public void testConversion()
-    {
-        CharArrayConverter c = new CharArrayConverter();
+public class CharArrayConverterTest {
+  /**
+   * Verify two way conversion
+   */
+  @Test
+  public void testConversion() {
+    CharArrayConverter c = new CharArrayConverter();
 
-        assertEquals( "abc", new String( c.fromCharacters( "abc" ) ) );
-        assertEquals( "abc", c.toCharacters( "abc".toCharArray() ).toString() );
-    }
+    assertEquals("abc", new String(c.fromCharacters("abc")));
+    assertEquals("abc", c.toCharacters("abc".toCharArray()).toString());
+  }
 }
