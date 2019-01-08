@@ -1,11 +1,7 @@
 package org.cyclopsgroup.caff.ref;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.lang.reflect.Field;
-
-import org.cyclopsgroup.caff.ABean;
+import static com.google.common.truth.Truth.assertThat;
+import java.util.function.Supplier;
 import org.junit.Test;
 
 /**
@@ -14,21 +10,48 @@ import org.junit.Test;
  * @author jiaqi
  */
 public class FieldValueReferenceTest {
-  /**
-   * Verify field value reference does its job
-   * 
-   * @throws Exception
-   */
+  static class PrivateType {
+    String packagePrivateField;
+
+    @SuppressWarnings("unused")
+    private String privateField;
+  }
+
+  public class PublicType {
+    String publicField;
+  }
+
   @Test
-  public void testPublicField() throws Exception {
-    ABean bean = new ABean();
-    bean.lastName = "Guo";
-    Field field = ABean.class.getField("lastName");
-    FieldValueReference<ABean> ref = new FieldValueReference<ABean>(field);
-    assertTrue(ref.isReadable());
-    assertTrue(ref.isWritable());
-    assertEquals("Guo", ref.readValue(bean));
-    ref.writeValue("Rod", bean);
-    assertEquals("Rod", bean.lastName);
+  public void testPackagePrivateAccess() {
+    final PrivateType o = new PrivateType();
+    verifyFieldReference("packagePrivateField", () -> o.packagePrivateField, o);
+  }
+
+  @Test(expected = AccessFailureException.class)
+  public void testPrivateAccess() throws NoSuchFieldException, SecurityException {
+    PrivateType o = new PrivateType();
+    ValueReference<PrivateType> ref =
+        ValueReference.instanceOf(PrivateType.class.getDeclaredField("privateField"));
+    ref.readValue(o);
+  }
+
+  @Test
+  public void testPublicAccess() {
+    final PublicType o = new PublicType();
+    verifyFieldReference("publicField", () -> o.publicField, o);
+  }
+
+  private <T> void verifyFieldReference(String fieldName, Supplier<String> readerFn, T owner) {
+    assertThat(readerFn.get()).isNull();
+    ValueReference<T> ref;
+    try {
+      ref = ValueReference.instanceOf(owner.getClass().getDeclaredField(fieldName));
+    } catch (NoSuchFieldException | SecurityException e) {
+      throw new IllegalStateException("Can't find field " + fieldName + " from object " + owner, e);
+    }
+    assertThat(ref.readValue(owner)).isNull();
+    ref.writeValue("abc", owner);
+    assertThat(readerFn.get()).isEqualTo("abc");
+    assertThat(ref.readValue(owner)).isEqualTo("abc");
   }
 }

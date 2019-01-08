@@ -2,6 +2,10 @@ package org.cyclopsgroup.caff.ref;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.security.AccessController;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
+import com.google.common.base.Preconditions;
 
 /**
  * Implementation of value reference that based on a public field
@@ -16,13 +20,7 @@ class FieldValueReference<T> extends ValueReference<T> {
    * @param field Reflection field object
    */
   FieldValueReference(Field field) {
-    if (field == null) {
-      throw new NullPointerException("Field can't be NULL");
-    }
-    if (!Modifier.isPublic(field.getModifiers())) {
-      throw new IllegalArgumentException("Only public field can be directly referenced: " + field);
-    }
-    this.field = field;
+    this.field = Preconditions.checkNotNull(field, "An input field is required.");
   }
 
   @Override
@@ -46,10 +44,15 @@ class FieldValueReference<T> extends ValueReference<T> {
   }
 
   @Override
-  public Object readValue(T owner) throws AccessFailureException {
+  public Object readValue(final T owner) throws AccessFailureException {
     try {
-      return field.get(owner);
-    } catch (IllegalAccessException e) {
+      return AccessController.doPrivileged(new PrivilegedExceptionAction<Object>() {
+        @Override
+        public Object run() throws IllegalAccessException {
+          return field.get(owner);
+        }
+      });
+    } catch (PrivilegedActionException e) {
       throw new AccessFailureException("Can't get field " + field + " of " + owner, e);
     }
   }

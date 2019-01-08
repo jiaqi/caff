@@ -4,6 +4,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import com.google.common.base.Preconditions;
 
 /**
  * Implementation of value holder based on reader and writer methods
@@ -31,7 +32,7 @@ class PropertyValueReference<T> extends ValueReference<T> {
    * @param descriptor Property descriptor of property
    */
   PropertyValueReference(PropertyDescriptor descriptor) {
-    name = descriptor.getName();
+    name = Preconditions.checkNotNull(descriptor, "A property descriptor is required.").getName();
     reader = nullIfNotPublic(descriptor.getReadMethod());
     writer = nullIfNotPublic(descriptor.getWriteMethod());
     type = descriptor.getPropertyType();
