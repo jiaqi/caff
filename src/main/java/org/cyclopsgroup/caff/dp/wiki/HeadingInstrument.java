@@ -1,10 +1,9 @@
 package org.cyclopsgroup.caff.dp.wiki;
 
 import java.io.PrintWriter;
-
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.caff.dp.Instrument;
+import com.google.common.base.Preconditions;
 
 public class HeadingInstrument extends Instrument {
   private final int length;
@@ -12,7 +11,7 @@ public class HeadingInstrument extends Instrument {
   private final String mark;
 
   public HeadingInstrument(int length) {
-    Validate.isTrue(length > 0 && length <= 5);
+    Preconditions.checkArgument(length > 0 && length <= 5, "Invalid length %s.", length);
     this.length = length;
     this.mark = StringUtils.repeat("=", length);
   }

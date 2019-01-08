@@ -10,27 +10,19 @@
   </parent>
   <artifactId>caff</artifactId>
   <name>caff</name>
-  <version>0.4.2-SNAPSHOT</version>
+  <!-- <version>0.4.2</version> -->
+  <version>1.0.0-SNAPSHOT</version>
   <description>Java conversion and formatting framework</description>
   <url>http://www.cyclopsgroup.org/projects/caff</url>
   <issueManagement>
     <system>github</system>
     <url>https://github.com/jiaqi/caff/issues</url>
   </issueManagement>
-  <properties>
-    <jdk.source.version>1.8</jdk.source.version>
-    <jdk.target.version>1.7</jdk.target.version>
-  </properties>
   <dependencies>
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <version>27.0.1-android</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-codec</groupId>
-      <artifactId>commons-codec</artifactId>
-      <version>1.11</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>

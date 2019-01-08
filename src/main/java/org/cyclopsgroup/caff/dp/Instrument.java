@@ -3,8 +3,6 @@ package org.cyclopsgroup.caff.dp;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import org.apache.commons.lang3.StringUtils;
-
 public abstract class Instrument {
   public static final String LINE_START = "$LINE_START$";
 
@@ -18,7 +16,7 @@ public abstract class Instrument {
 
   public void printText(String text, PrintWriter out) throws IOException {
     if (text.startsWith(LINE_START)) {
-      text = " " + StringUtils.remove(text, LINE_START);
+      text = " " + text.substring(LINE_START.length());
     }
     out.print(text);
   }

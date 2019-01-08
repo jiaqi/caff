@@ -1,8 +1,9 @@
 package org.cyclopsgroup.caff.util;
 
 import java.util.UUID;
+import com.google.common.io.BaseEncoding;
 
-import org.apache.commons.codec.binary.Base64;
+
 
 /**
  * Utilities around {@link UUID}
@@ -32,7 +33,7 @@ public final class UUIDUtils {
    * @return UUID result
    */
   public static UUID fromString(String id) {
-    return fromBytes(Base64.decodeBase64(id));
+    return fromBytes(BaseEncoding.base64Url().decode(id));
   }
 
   /**
@@ -55,7 +56,7 @@ public final class UUIDUtils {
    * @return String result
    */
   public static String toString(UUID id) {
-    return Base64.encodeBase64URLSafeString(toBytes(id));
+    return BaseEncoding.base64Url().encode(toBytes(id)).replaceAll("=*$", "");
   }
 
   /**

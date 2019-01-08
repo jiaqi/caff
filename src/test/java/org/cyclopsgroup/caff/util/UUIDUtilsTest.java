@@ -1,9 +1,8 @@
 package org.cyclopsgroup.caff.util;
 
+import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertEquals;
-
 import java.util.UUID;
-
 import org.junit.Test;
 
 /**
@@ -27,6 +26,6 @@ public class UUIDUtilsTest {
     String s = UUIDUtils.toString(id);
     assertEquals(22, s.length());
     UUID newId = UUIDUtils.fromString(s);
-    assertEquals("Random UUID " + id + " failed during encoding and decoding matching", id, newId);
+    assertThat(newId).isEqualTo(id);
   }
 }
