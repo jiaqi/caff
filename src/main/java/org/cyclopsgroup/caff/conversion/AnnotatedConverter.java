@@ -3,6 +3,8 @@ package org.cyclopsgroup.caff.conversion;
 import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
+import com.google.common.collect.FluentIterable;
+import com.google.common.collect.ImmutableList;
 
 /**
  * Converter that converts based on rules defined in annotation
@@ -36,7 +38,7 @@ public class AnnotatedConverter<T> implements Converter<T> {
       }
     }
 
-    private Builder<T> withAccess(AnnotatedElement... elements) {
+    private Builder<T> withAccess(ImmutableList<AnnotatedElement> elements) {
       for (AnnotatedElement access : elements) {
         if (access == null) {
           continue;
@@ -60,13 +62,15 @@ public class AnnotatedConverter<T> implements Converter<T> {
   private final Converter<T> proxy;
 
   /**
-   * Constructor with an annotated element with annotations
+   * Constructor with an annotated element with annotations.
    *
-   * @param type Type to convert from/to
-   * @param access Access object where conversion annotation is placed
+   * @param type Type to convert from/to.
+   * @param firstELement is the first element in array to add.
+   * @param additionalElements is the rest of elements as an array.
    */
-  public AnnotatedConverter(Class<T> type, AnnotatedElement... access) {
-    this.proxy = new Builder<T>().withAccess(access).toConverter(type);
+  public AnnotatedConverter(Class<T> type, AnnotatedElement firstElement,
+      AnnotatedElement... additionalElements) {
+    this(type, FluentIterable.of(firstElement).append(additionalElements).toList());
   }
 
   /**
@@ -80,6 +84,16 @@ public class AnnotatedConverter<T> implements Converter<T> {
   }
 
   /**
+   * Constructor with an annotated element with annotations.
+   *
+   * @param type Type to convert from/to.
+   * @param elements Iterable of annotated elements.
+   */
+  public AnnotatedConverter(Class<T> type, Iterable<AnnotatedElement> elements) {
+    this.proxy = new Builder<T>().withAccess(ImmutableList.copyOf(elements)).toConverter(type);
+  }
+
+  /**
    * Constructor with a property descriptor
    *
    * @param type Type of value to convert
@@ -87,7 +101,8 @@ public class AnnotatedConverter<T> implements Converter<T> {
    */
   public AnnotatedConverter(Class<T> type, PropertyDescriptor descriptor) {
     this.proxy = new Builder<T>()
-        .withAccess(descriptor.getReadMethod(), descriptor.getWriteMethod()).toConverter(type);
+        .withAccess(ImmutableList.of(descriptor.getReadMethod(), descriptor.getWriteMethod()))
+        .toConverter(type);
   }
 
   @Override

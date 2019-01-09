@@ -1,11 +1,11 @@
 package org.cyclopsgroup.caff.ref;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.security.AccessController;
-import java.security.PrivilegedActionException;
-import java.security.PrivilegedExceptionAction;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 
 /**
  * Implementation of value reference that based on a public field
@@ -15,12 +15,24 @@ import com.google.common.base.Preconditions;
  */
 class FieldValueReference<T> extends ValueReference<T> {
   private final Field field;
+  private final boolean publicField;
 
   /**
    * @param field Reflection field object
    */
   FieldValueReference(Field field) {
     this.field = Preconditions.checkNotNull(field, "An input field is required.");
+    this.publicField = (field.getModifiers() & Modifier.PUBLIC) > 0;
+  }
+
+  @Override
+  public <A extends Annotation> A getAnnotation(Class<A> annotationType) {
+    return field.getAnnotation(annotationType);
+  }
+
+  @Override
+  public ImmutableList<AnnotatedElement> getAnontatedElements() {
+    return ImmutableList.of(field);
   }
 
   @Override
@@ -45,14 +57,12 @@ class FieldValueReference<T> extends ValueReference<T> {
 
   @Override
   public Object readValue(final T owner) throws AccessFailureException {
+    if (!publicField && !field.isAccessible()) {
+      field.setAccessible(true);
+    }
     try {
-      return AccessController.doPrivileged(new PrivilegedExceptionAction<Object>() {
-        @Override
-        public Object run() throws IllegalAccessException {
-          return field.get(owner);
-        }
-      });
-    } catch (PrivilegedActionException e) {
+      return field.get(owner);
+    } catch (IllegalAccessException e) {
       throw new AccessFailureException("Can't get field " + field + " of " + owner, e);
     }
   }
@@ -61,6 +71,9 @@ class FieldValueReference<T> extends ValueReference<T> {
   public void writeValue(Object value, T owner) throws AccessFailureException {
     if (value == null && field.getType().isPrimitive()) {
       return;
+    }
+    if (!publicField && !field.isAccessible()) {
+      field.setAccessible(true);
     }
     try {
       field.set(owner, value);

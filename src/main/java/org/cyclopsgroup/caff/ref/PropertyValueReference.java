@@ -1,10 +1,14 @@
 package org.cyclopsgroup.caff.ref;
 
 import java.beans.PropertyDescriptor;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import javax.annotation.Nullable;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 
 /**
  * Implementation of value holder based on reader and writer methods
@@ -13,29 +17,40 @@ import com.google.common.base.Preconditions;
  * @param <T> Type of owner object
  */
 class PropertyValueReference<T> extends ValueReference<T> {
-  private static Method nullIfNotPublic(Method method) {
-    if (method == null) {
-      return null;
-    }
-    return Modifier.isPublic(method.getModifiers()) ? method : null;
-  }
-
   private final String name;
-
   private final Method reader;
-
+  private final boolean readerPublic;
   private final Class<?> type;
-
   private final Method writer;
+  private final boolean writerPublic;
 
   /**
    * @param descriptor Property descriptor of property
    */
   PropertyValueReference(PropertyDescriptor descriptor) {
-    name = Preconditions.checkNotNull(descriptor, "A property descriptor is required.").getName();
-    reader = nullIfNotPublic(descriptor.getReadMethod());
-    writer = nullIfNotPublic(descriptor.getWriteMethod());
-    type = descriptor.getPropertyType();
+    this(descriptor.getName(), descriptor.getPropertyType(), descriptor.getReadMethod(),
+        descriptor.getWriteMethod());
+  }
+
+  PropertyValueReference(String name, Class<?> type, @Nullable Method reader,
+      @Nullable Method writer) {
+    this.name = Preconditions.checkNotNull(name, "Property name is required.");
+    this.type = Preconditions.checkNotNull(type, "Property type is required.");
+    this.reader = reader;
+    this.readerPublic = reader != null && (reader.getModifiers() & Modifier.PUBLIC) > 0;
+    this.writer = writer;
+    this.writerPublic = writer != null && (writer.getModifiers() & Modifier.PUBLIC) > 0;
+  }
+
+  @Override
+  public <A extends Annotation> A getAnnotation(Class<A> annotationType) {
+    return ImmutableList.of(reader, writer).stream().filter(m -> m != null)
+        .map(m -> m.getAnnotation(annotationType)).filter(a -> a != null).findAny().orElse(null);
+  }
+
+  @Override
+  public ImmutableList<AnnotatedElement> getAnontatedElements() {
+    return ImmutableList.of(reader, writer);
   }
 
   @Override
@@ -63,11 +78,12 @@ class PropertyValueReference<T> extends ValueReference<T> {
     if (reader == null) {
       throw new IllegalStateException("Property " + name + " isn't readable");
     }
+    if (!readerPublic && !reader.isAccessible()) {
+      reader.setAccessible(true);
+    }
     try {
       return reader.invoke(owner);
-    } catch (IllegalAccessException e) {
-      throw new AccessFailureException("Can't read property " + name + " from object " + owner, e);
-    } catch (InvocationTargetException e) {
+    } catch (IllegalAccessException | InvocationTargetException e) {
       throw new AccessFailureException("Can't read property " + name + " from object " + owner, e);
     }
   }
@@ -80,16 +96,13 @@ class PropertyValueReference<T> extends ValueReference<T> {
     if (value == null && type.isPrimitive()) {
       return;
     }
+    if (!writerPublic && !writer.isAccessible()) {
+      writer.setAccessible(true);
+    }
     try {
       writer.invoke(owner, value);
-    } catch (IllegalArgumentException e) {
-      throw new IllegalArgumentException(
-          "Can't set property " + name + " of object " + owner + " to " + value, e);
-    } catch (IllegalAccessException e) {
-      throw new AccessFailureException(
-          "Can't set property " + name + " of object " + owner + " to " + value, e);
-    } catch (InvocationTargetException e) {
-      throw new AccessFailureException(
+    } catch (IllegalAccessException | InvocationTargetException e) {
+      throw new IllegalStateException(
           "Can't set property " + name + " of object " + owner + " to " + value, e);
     }
   }
