@@ -6,8 +6,10 @@ import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import javax.annotation.Nullable;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 
 /**
@@ -44,13 +46,13 @@ class PropertyValueReference<T> extends ValueReference<T> {
 
   @Override
   public <A extends Annotation> A getAnnotation(Class<A> annotationType) {
-    return ImmutableList.of(reader, writer).stream().filter(m -> m != null)
+    return Arrays.asList(reader, writer).stream().filter(m -> m != null)
         .map(m -> m.getAnnotation(annotationType)).filter(a -> a != null).findAny().orElse(null);
   }
 
   @Override
   public ImmutableList<AnnotatedElement> getAnontatedElements() {
-    return ImmutableList.of(reader, writer);
+    return FluentIterable.<AnnotatedElement>of(reader, writer).filter(e -> e != null).toList();
   }
 
   @Override
