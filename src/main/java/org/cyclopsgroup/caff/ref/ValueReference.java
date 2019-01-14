@@ -65,6 +65,10 @@ public abstract class ValueReference<T> {
 
   /**
    * Gets annotation with given type or null if not found.
+   * 
+   * @param annotationType the type of annotation to find.
+   * @param <A> the type of annotation to find and return.
+   * @return The annotation that matches given type or null if nothing is found.
    */
   @Nullable
   public abstract <A extends Annotation> A getAnnotation(Class<A> annotationType);
@@ -72,7 +76,7 @@ public abstract class ValueReference<T> {
   /**
    * Get all annotated elements.
    * 
-   * @return
+   * @return List of found annotated elements.
    */
   public abstract ImmutableList<AnnotatedElement> getAnontatedElements();
 

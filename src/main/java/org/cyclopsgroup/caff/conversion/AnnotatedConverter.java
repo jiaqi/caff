@@ -64,9 +64,9 @@ public class AnnotatedConverter<T> implements Converter<T> {
   /**
    * Constructor with an annotated element with annotations.
    *
-   * @param type Type to convert from/to.
-   * @param firstELement is the first element in array to add.
-   * @param additionalElements is the rest of elements as an array.
+   * @param type the kind of bean to convert from/to.
+   * @param firstElement is the first element in array to add.
+   * @param additionalElements the rest of elements as an array.
    */
   public AnnotatedConverter(Class<T> type, AnnotatedElement firstElement,
       AnnotatedElement... additionalElements) {
