@@ -21,5 +21,4 @@ public class FixLengthFormatCharSequenceTest extends AbstractFixLengthTestCase {
   protected String toString(ABean bean) throws IOException {
     return format.formatToString(bean);
   }
-
 }

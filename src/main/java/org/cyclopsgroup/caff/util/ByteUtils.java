@@ -15,7 +15,7 @@ public final class ByteUtils {
    * @param dest Destination byte array value is written to
    * @param offset The starting point of where the value is written
    * @throws IllegalArgumentException When input byte array doesn't have enough space to write a
-   *         long
+   *     long
    */
   public static void writeLong(long value, byte[] dest, int offset)
       throws IllegalArgumentException {

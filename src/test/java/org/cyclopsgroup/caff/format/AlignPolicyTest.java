@@ -6,13 +6,11 @@ import org.junit.Test;
 
 /**
  * Test of {@link AlignPolicy}
- * 
+ *
  * @author jiaqi
  */
 public class AlignPolicyTest {
-  /**
-   * Verify that trim does right job
-   */
+  /** Verify that trim does right job */
   @Test
   public void testTrim() {
     assertEquals("abcd", AlignPolicy.LEFT.trim("abcd00", '0'));
@@ -27,9 +25,7 @@ public class AlignPolicyTest {
     return new String(dest);
   }
 
-  /**
-   * Verify fill function
-   */
+  /** Verify fill function */
   @Test
   public void testFill() {
     assertEquals("abc00", fillWith("abc", AlignPolicy.LEFT));

@@ -17,33 +17,25 @@ public class ByteUtilsTest {
     assertEquals(value, r);
   }
 
-  /**
-   * Verify with long value 100
-   */
+  /** Verify with long value 100 */
   @Test
   public void testSmallValue() {
     readWriteAndVerify(100L);
   }
 
-  /**
-   * Verify with {@link Long#MAX_VALUE}
-   */
+  /** Verify with {@link Long#MAX_VALUE} */
   @Test
   public void testMaxValue() {
     readWriteAndVerify(Long.MAX_VALUE);
   }
 
-  /**
-   * Verify with {@link Long#MIN_VALUE}
-   */
+  /** Verify with {@link Long#MIN_VALUE} */
   @Test
   public void testMinValue() {
     readWriteAndVerify(Long.MIN_VALUE);
   }
 
-  /**
-   * Verify with Zero
-   */
+  /** Verify with Zero */
   @Test
   public void testZero() {
     readWriteAndVerify(0);

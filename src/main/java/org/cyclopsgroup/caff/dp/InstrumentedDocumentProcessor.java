@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 
 public class InstrumentedDocumentProcessor implements DocumentProcessor {
@@ -95,8 +94,7 @@ public class InstrumentedDocumentProcessor implements DocumentProcessor {
     }
   }
 
-  private void writeText(String text, Deque<Instrument> stack, PrintWriter output)
-      throws IOException {
+  private void writeText(String text, Deque<Instrument> stack, PrintWriter output) {
     if (stack.peek() == null) {
       output.print(StringUtils.removeStart(text, Instrument.LINE_START));
     } else {

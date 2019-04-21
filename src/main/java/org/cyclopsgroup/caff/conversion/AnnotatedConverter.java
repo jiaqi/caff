@@ -68,8 +68,8 @@ public class AnnotatedConverter<T> implements Converter<T> {
    * @param firstElement is the first element in array to add.
    * @param additionalElements the rest of elements as an array.
    */
-  public AnnotatedConverter(Class<T> type, AnnotatedElement firstElement,
-      AnnotatedElement... additionalElements) {
+  public AnnotatedConverter(
+      Class<T> type, AnnotatedElement firstElement, AnnotatedElement... additionalElements) {
     this(type, FluentIterable.of(firstElement).append(additionalElements).toList());
   }
 
@@ -100,9 +100,10 @@ public class AnnotatedConverter<T> implements Converter<T> {
    * @param descriptor Property descriptor
    */
   public AnnotatedConverter(Class<T> type, PropertyDescriptor descriptor) {
-    this.proxy = new Builder<T>()
-        .withAccess(ImmutableList.of(descriptor.getReadMethod(), descriptor.getWriteMethod()))
-        .toConverter(type);
+    this.proxy =
+        new Builder<T>()
+            .withAccess(ImmutableList.of(descriptor.getReadMethod(), descriptor.getWriteMethod()))
+            .toConverter(type);
   }
 
   @Override

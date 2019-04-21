@@ -26,16 +26,17 @@ class PropertyValueReference<T> extends ValueReference<T> {
   private final Method writer;
   private final boolean writerPublic;
 
-  /**
-   * @param descriptor Property descriptor of property
-   */
+  /** @param descriptor Property descriptor of property */
   PropertyValueReference(PropertyDescriptor descriptor) {
-    this(descriptor.getName(), descriptor.getPropertyType(), descriptor.getReadMethod(),
+    this(
+        descriptor.getName(),
+        descriptor.getPropertyType(),
+        descriptor.getReadMethod(),
         descriptor.getWriteMethod());
   }
 
-  PropertyValueReference(String name, Class<?> type, @Nullable Method reader,
-      @Nullable Method writer) {
+  PropertyValueReference(
+      String name, Class<?> type, @Nullable Method reader, @Nullable Method writer) {
     this.name = Preconditions.checkNotNull(name, "Property name is required.");
     this.type = Preconditions.checkNotNull(type, "Property type is required.");
     this.reader = reader;
@@ -46,8 +47,12 @@ class PropertyValueReference<T> extends ValueReference<T> {
 
   @Override
   public <A extends Annotation> A getAnnotation(Class<A> annotationType) {
-    return Arrays.asList(reader, writer).stream().filter(m -> m != null)
-        .map(m -> m.getAnnotation(annotationType)).filter(a -> a != null).findAny().orElse(null);
+    return Arrays.asList(reader, writer).stream()
+        .filter(m -> m != null)
+        .map(m -> m.getAnnotation(annotationType))
+        .filter(a -> a != null)
+        .findAny()
+        .orElse(null);
   }
 
   @Override

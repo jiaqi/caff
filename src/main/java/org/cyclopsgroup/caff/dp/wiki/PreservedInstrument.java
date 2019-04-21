@@ -2,7 +2,6 @@ package org.cyclopsgroup.caff.dp.wiki;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 import org.cyclopsgroup.caff.dp.Instrument;
@@ -23,11 +22,15 @@ public class PreservedInstrument extends Instrument {
   }
 
   @Override
-  public void printText(String text, PrintWriter out) throws IOException {
+  public void printText(String text, PrintWriter out) {
     if (text.startsWith(PREFIX)) {
       text = System.lineSeparator() + StringUtils.removeStart(text, PREFIX);
     }
-    StringEscapeUtils.ESCAPE_HTML4.translate(text, out);
+    try {
+      StringEscapeUtils.ESCAPE_HTML4.translate(text, out);
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Can't translate input " + text);
+    }
   }
 
   @Override

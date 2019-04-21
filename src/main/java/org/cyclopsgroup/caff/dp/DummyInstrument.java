@@ -5,8 +5,11 @@ import java.io.PrintWriter;
 public class DummyInstrument extends Instrument {
   @Override
   public int searchToOpen(String segment, Instrument parent) {
-    return segment.startsWith(LINE_START) && segment.length() > LINE_START.length()
-        && parent == null ? 0 : -1;
+    return segment.startsWith(LINE_START)
+            && segment.length() > LINE_START.length()
+            && parent == null
+        ? 0
+        : -1;
   }
 
   @Override

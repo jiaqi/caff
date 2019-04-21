@@ -9,9 +9,7 @@ import java.io.Reader;
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public abstract class CharIterator {
-  /**
-   * @return True if there's remaining character to read
-   */
+  /** @return True if there's remaining character to read */
   public abstract boolean hasNext();
 
   /**
@@ -28,10 +26,12 @@ public abstract class CharIterator {
     return new CharIterator() {
       private int position = 0;
 
+      @Override
       public boolean hasNext() {
         return position < seq.length();
       }
 
+      @Override
       public char next() {
         return seq.charAt(position++);
       }
@@ -41,7 +41,6 @@ public abstract class CharIterator {
   /**
    * @param reader IO reader as input
    * @return An implementation to read from {@link Reader}
-   *
    * @throws IOException Allows reading exception from {@link Reader}
    */
   public static CharIterator instanceOf(final Reader reader) throws IOException {

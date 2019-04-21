@@ -1,6 +1,7 @@
 package org.cyclopsgroup.caff.ref.test;
 
 import static com.google.common.truth.Truth.assertThat;
+
 import java.util.function.Supplier;
 import org.cyclopsgroup.caff.ref.ValueReference;
 import org.junit.Test;
@@ -22,7 +23,7 @@ public class FieldValueReferenceTest {
   }
 
   @Test
-  public void testPrivateAccess() throws NoSuchFieldException, SecurityException {
+  public void testPrivateAccess() throws SecurityException {
     PrivateType o = new PrivateType();
     verifyFieldAccess("privateField", () -> o.privateField, o);
   }

@@ -6,7 +6,6 @@ import java.lang.reflect.AccessibleObject;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.cyclopsgroup.caff.CharIterator;
 import org.cyclopsgroup.caff.conversion.AnnotatedConverter;
 import org.cyclopsgroup.caff.conversion.Converter;
@@ -15,7 +14,7 @@ import org.cyclopsgroup.caff.ref.ValueReferenceScanner;
 
 /**
  * Internal class that really does CSV format and parsing
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  * @param <T> Type of bean to convert from/to
  */
@@ -27,8 +26,8 @@ class CSVImpl<T> {
 
     private final ValueReference<T> reference;
 
-    private Slot(ValueReference<T> reference, Converter<Object> converter,
-        CSVField fieldAnnotation) {
+    private Slot(
+        ValueReference<T> reference, Converter<Object> converter, CSVField fieldAnnotation) {
       this.reference = reference;
       this.converter = converter;
       this.fieldAnnotation = fieldAnnotation;
@@ -49,9 +48,7 @@ class CSVImpl<T> {
 
   private final Map<Integer, Slot> slots;
 
-  /**
-   * @param beanType Type of bean to parse or format
-   */
+  /** @param beanType Type of bean to parse or format */
   CSVImpl(final Class<T> beanType) {
     CSVType typeAnnotation = beanType.getAnnotation(CSVType.class);
     if (typeAnnotation == null) {
@@ -66,15 +63,21 @@ class CSVImpl<T> {
     ValueReferenceScanner<T> scanner = new ValueReferenceScanner<T>(beanType);
 
     final Map<Integer, Slot> slots = new HashMap<Integer, Slot>();
-    scanner.scanForAnnotation(CSVField.class, new ValueReferenceScanner.Listener<T, CSVField>() {
-      @SuppressWarnings("unchecked")
-      public void handleReference(ValueReference<T> reference, CSVField field,
-          AccessibleObject access) {
-        Slot slot = new Slot(reference,
-            new AnnotatedConverter<Object>((Class<Object>) reference.getType(), access), field);
-        slots.put(field.position(), slot);
-      }
-    });
+    scanner.scanForAnnotation(
+        CSVField.class,
+        new ValueReferenceScanner.Listener<T, CSVField>() {
+          @SuppressWarnings("unchecked")
+          @Override
+          public void handleReference(
+              ValueReference<T> reference, CSVField field, AccessibleObject access) {
+            Slot slot =
+                new Slot(
+                    reference,
+                    new AnnotatedConverter<Object>((Class<Object>) reference.getType(), access),
+                    field);
+            slots.put(field.position(), slot);
+          }
+        });
     this.slots = Collections.unmodifiableMap(slots);
   }
 
@@ -84,15 +87,16 @@ class CSVImpl<T> {
    * @throws IOException If IO writing fails
    */
   void populate(final T bean, CharIterator in) throws IOException {
-    CSVParser parser = new CSVParser() {
-      @Override
-      protected void handleField(int position, CharSequence content) throws IOException {
-        Slot slot = slots.get(position);
-        if (slot != null) {
-          slot.write(bean, content);
-        }
-      }
-    };
+    CSVParser parser =
+        new CSVParser() {
+          @Override
+          protected void handleField(int position, CharSequence content) throws IOException {
+            Slot slot = slots.get(position);
+            if (slot != null) {
+              slot.write(bean, content);
+            }
+          }
+        };
     parser.parse(in);
   }
 

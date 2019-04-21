@@ -11,9 +11,7 @@ public class NullFriendlyConverter<T> implements Converter<T> {
 
   private final Converter<T> proxy;
 
-  /**
-   * @param proxy Internal converter that does actual conversion
-   */
+  /** @param proxy Internal converter that does actual conversion */
   public NullFriendlyConverter(Converter<T> proxy) {
     if (proxy == null) {
       throw new NullPointerException("Input proxy converter can't be NULL");

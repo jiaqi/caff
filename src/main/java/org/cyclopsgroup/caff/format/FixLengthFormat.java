@@ -15,9 +15,7 @@ import org.cyclopsgroup.caff.CharArrayCharSequence;
 public class FixLengthFormat<T> extends Format<T> {
   private final FixLengthImpl<T> impl;
 
-  /**
-   * @param beanType Type of bean
-   */
+  /** @param beanType Type of bean */
   public FixLengthFormat(Class<T> beanType) {
     super(beanType);
     impl = new FixLengthImpl<T>(beanType);

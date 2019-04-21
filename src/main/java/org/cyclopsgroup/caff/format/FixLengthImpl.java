@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.cyclopsgroup.caff.conversion.AnnotatedConverter;
 import org.cyclopsgroup.caff.conversion.Converter;
 import org.cyclopsgroup.caff.ref.ValueReference;
@@ -37,14 +36,10 @@ class FixLengthImpl<T> {
 
   private final Map<String, Slot> slots;
 
-  /**
-   * Message level meta data
-   */
+  /** Message level meta data */
   final FixLengthType type;
 
-  /**
-   * @param beanType type of bean to format/parse
-   */
+  /** @param beanType type of bean to format/parse */
   FixLengthImpl(Class<T> beanType) {
     FixLengthType type = beanType.getAnnotation(FixLengthType.class);
     if (type == null) {
@@ -55,14 +50,18 @@ class FixLengthImpl<T> {
 
     final Map<String, Slot> slots = new HashMap<String, Slot>();
     ValueReferenceScanner<T> scanner = new ValueReferenceScanner<T>(beanType);
-    scanner.scanForAnnotation(FixLengthField.class,
+    scanner.scanForAnnotation(
+        FixLengthField.class,
         new ValueReferenceScanner.Listener<T, FixLengthField>() {
           @SuppressWarnings("unchecked")
-          public void handleReference(ValueReference<T> reference, FixLengthField hint,
-              AccessibleObject access) {
-            Slot slot = new Slot(hint,
-                new AnnotatedConverter<Object>((Class<Object>) reference.getType(), access),
-                reference);
+          @Override
+          public void handleReference(
+              ValueReference<T> reference, FixLengthField hint, AccessibleObject access) {
+            Slot slot =
+                new Slot(
+                    hint,
+                    new AnnotatedConverter<Object>((Class<Object>) reference.getType(), access),
+                    reference);
             slots.put(reference.getName(), slot);
           }
         });
@@ -81,8 +80,10 @@ class FixLengthImpl<T> {
       if (slot.field.start() >= input.length()) {
         continue;
       }
-      CharSequence content = input.subSequence(slot.field.start(),
-          Math.min(slot.field.start() + slot.field.length(), input.length()));
+      CharSequence content =
+          input.subSequence(
+              slot.field.start(),
+              Math.min(slot.field.start() + slot.field.length(), input.length()));
       content = slot.field.align().trim(content, slot.fill);
       Object value = slot.converter.fromCharacters(content);
       slot.reference.writeValue(value, bean);
@@ -108,7 +109,6 @@ class FixLengthImpl<T> {
         content = slot.field.trim().trim(content, slot.field.length(), slot.field.align());
       }
       slot.field.align().fill(content, output, slot.field.start(), slot.field.length(), slot.fill);
-
     }
     return output;
   }

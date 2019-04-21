@@ -13,7 +13,7 @@ import org.junit.Test;
 
 /**
  * A test that covers {@link DateField} annotation based conversion
- * 
+ *
  * @author jiaqi
  */
 public class DateFieldTest {
@@ -22,7 +22,7 @@ public class DateFieldTest {
 
   /**
    * Setting up a converter that calls {@link DateField}
-   * 
+   *
    * @throws Exception
    */
   @Before
@@ -43,7 +43,7 @@ public class DateFieldTest {
   /**
    * Verify {@link DateField} correctly implies conversion rule of {@link Date} to characters
    * conversion
-   * 
+   *
    * @throws ParseException Allows string to date parsing error
    */
   @Test

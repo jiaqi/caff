@@ -14,9 +14,7 @@ import org.junit.Test;
  * @author jiaqi
  */
 public class EnumConverterTest {
-  /**
-   * Verify the conversion for enum that implements {@link NormalizedValue}
-   */
+  /** Verify the conversion for enum that implements {@link NormalizedValue} */
   @Test
   public void testConvertNormalizedEnum() {
     Converter<NormalizedEnum> c = new EnumConverter<NormalizedEnum>(NormalizedEnum.class);
@@ -34,9 +32,7 @@ public class EnumConverterTest {
     c.fromCharacters("100");
   }
 
-  /**
-   * Verify the conversion for enum that doesn't implement {@link NormalizedValue}
-   */
+  /** Verify the conversion for enum that doesn't implement {@link NormalizedValue} */
   @Test
   public void testConvertSimpleEnum() {
     Converter<RetentionPolicy> c = new EnumConverter<RetentionPolicy>(RetentionPolicy.class);
@@ -44,9 +40,7 @@ public class EnumConverterTest {
     assertEquals("RUNTIME", c.toCharacters(RetentionPolicy.RUNTIME).toString());
   }
 
-  /**
-   * Verify that conversion failure causes a {@link ConversionFailedException}
-   */
+  /** Verify that conversion failure causes a {@link ConversionFailedException} */
   @Test(expected = ConversionFailedException.class)
   public void testConverWithInvalidInput() {
     Converter<RetentionPolicy> c = new EnumConverter<RetentionPolicy>(RetentionPolicy.class);

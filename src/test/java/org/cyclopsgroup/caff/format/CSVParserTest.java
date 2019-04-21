@@ -17,12 +17,13 @@ import org.junit.Test;
 public class CSVParserTest {
   private void parseAndVerify(String input, String... expectedResults) {
     final List<String> fields = new ArrayList<String>(expectedResults.length);
-    CSVParser parser = new CSVParser() {
-      @Override
-      protected void handleField(int position, CharSequence content) throws IOException {
-        fields.add(position, content.toString());
-      }
-    };
+    CSVParser parser =
+        new CSVParser() {
+          @Override
+          protected void handleField(int position, CharSequence content) throws IOException {
+            fields.add(position, content.toString());
+          }
+        };
     try {
       parser.parse(CharIterator.instanceOf(input));
     } catch (IOException e) {
@@ -34,25 +35,19 @@ public class CSVParserTest {
     }
   }
 
-  /**
-   * Verify double quote is correctly recognized
-   */
+  /** Verify double quote is correctly recognized */
   @Test
   public void testDoubleQuote() {
     parseAndVerify("a, \"bb\",\"ccc\",d", "a", "bb", "ccc", "d");
   }
 
-  /**
-   * Verify normal case without quoting or escaping
-   */
+  /** Verify normal case without quoting or escaping */
   @Test
   public void testNormalCase() {
     parseAndVerify("a, bb,ccc,d", "a", "bb", "ccc", "d");
   }
 
-  /**
-   * Verify escape character is taking effect
-   */
+  /** Verify escape character is taking effect */
   @Test
   public void testEscaping() {
     parseAndVerify("a, b\"b, \"c\"\"\", \"d\"\"d\"", "a", "b\"b", "c\"", "d\"d");

@@ -6,9 +6,7 @@ package org.cyclopsgroup.caff.format;
  * @author <a href="mailto:jiaqi@cyclopsgroup.org">Jiaqi Guo</a>
  */
 public enum TrimPolicy {
-  /**
-   * Default value means, truncate right when align left, or truncate left when align right
-   */
+  /** Default value means, truncate right when align left, or truncate left when align right */
   FORWARD {
     @Override
     CharSequence trim(CharSequence src, int length, AlignPolicy align) {
@@ -30,9 +28,7 @@ public enum TrimPolicy {
       return truncated;
     }
   },
-  /**
-   * Truncate left when align left, or truncate right when align right
-   */
+  /** Truncate left when align left, or truncate right when align right */
   REVERSE {
     @Override
     CharSequence trim(CharSequence src, int length, AlignPolicy align) {
@@ -54,9 +50,7 @@ public enum TrimPolicy {
       return truncated;
     }
   },
-  /**
-   * When value is too long, throw {@link IllegalArgumentException} instead of truncating
-   */
+  /** When value is too long, throw {@link IllegalArgumentException} instead of truncating */
   DISALLOW {
     @Override
     CharSequence trim(CharSequence src, int length, AlignPolicy align) {

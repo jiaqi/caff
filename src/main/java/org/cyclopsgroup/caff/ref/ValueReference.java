@@ -30,16 +30,19 @@ public abstract class ValueReference<T> {
     }
   }
 
-  public static <T> ValueReference<T> forProperty(String propertyName, Class<T> type,
-      Class<?> propertyType) {
-    Preconditions.checkArgument(propertyName != null && !propertyName.isEmpty(),
-        "Invalid property name " + propertyName);
+  public static <T> ValueReference<T> forProperty(
+      String propertyName, Class<T> type, Class<?> propertyType) {
+    Preconditions.checkArgument(
+        propertyName != null && !propertyName.isEmpty(), "Invalid property name " + propertyName);
     Preconditions.checkNotNull(type, "Bean type can't be null.");
     String name = Character.toUpperCase(propertyName.charAt(0)) + propertyName.substring(1);
     Method getter = findMethod(type, "get" + name);
     if (getter != null) {
-      Preconditions.checkArgument(propertyType.isAssignableFrom(getter.getReturnType()),
-          "Property type is %s while getter returns %s.", propertyType, getter.getReturnType());
+      Preconditions.checkArgument(
+          propertyType.isAssignableFrom(getter.getReturnType()),
+          "Property type is %s while getter returns %s.",
+          propertyType,
+          getter.getReturnType());
     }
     Method setter = findMethod(type, "set" + name, propertyType);
     return new PropertyValueReference<>(propertyName, propertyType, getter, setter);
@@ -65,7 +68,7 @@ public abstract class ValueReference<T> {
 
   /**
    * Gets annotation with given type or null if not found.
-   * 
+   *
    * @param annotationType the type of annotation to find.
    * @param <A> the type of annotation to find and return.
    * @return The annotation that matches given type or null if nothing is found.
@@ -75,29 +78,21 @@ public abstract class ValueReference<T> {
 
   /**
    * Get all annotated elements.
-   * 
+   *
    * @return List of found annotated elements.
    */
   public abstract ImmutableList<AnnotatedElement> getAnontatedElements();
 
-  /**
-   * @return A unique name for this holder
-   */
+  /** @return A unique name for this holder */
   public abstract String getName();
 
-  /**
-   * @return Type of value
-   */
+  /** @return Type of value */
   public abstract Class<?> getType();
 
-  /**
-   * @return True if value really is readable
-   */
+  /** @return True if value really is readable */
   public abstract boolean isReadable();
 
-  /**
-   * @return True if value really is writable
-   */
+  /** @return True if value really is writable */
   public abstract boolean isWritable();
 
   /**

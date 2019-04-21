@@ -6,13 +6,11 @@ import org.junit.Test;
 
 /**
  * Test case for {@link TrimPolicy}
- * 
+ *
  * @author jiaqi
  */
 public class TrimPolicyTest {
-  /**
-   * Verify trim method
-   */
+  /** Verify trim method */
   @Test
   public void testTrimForward() {
     assertEquals("abcd", TrimPolicy.FORWARD.trim("abcde", 4, AlignPolicy.LEFT));

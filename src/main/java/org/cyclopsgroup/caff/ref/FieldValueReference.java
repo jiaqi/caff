@@ -17,9 +17,7 @@ class FieldValueReference<T> extends ValueReference<T> {
   private final Field field;
   private final boolean publicField;
 
-  /**
-   * @param field Reflection field object
-   */
+  /** @param field Reflection field object */
   FieldValueReference(Field field) {
     this.field = Preconditions.checkNotNull(field, "An input field is required.");
     this.publicField = (field.getModifiers() & Modifier.PUBLIC) > 0;
@@ -78,8 +76,8 @@ class FieldValueReference<T> extends ValueReference<T> {
     try {
       field.set(owner, value);
     } catch (IllegalAccessException e) {
-      throw new AccessFailureException("Can't set field " + field + " of " + owner + " to " + value,
-          e);
+      throw new AccessFailureException(
+          "Can't set field " + field + " of " + owner + " to " + value, e);
     }
   }
 }

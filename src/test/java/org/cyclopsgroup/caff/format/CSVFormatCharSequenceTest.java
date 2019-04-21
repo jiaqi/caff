@@ -19,5 +19,4 @@ public class CSVFormatCharSequenceTest extends AbstractCSVTestCase {
   protected String toString(CSVBean bean) throws IOException {
     return format.formatToString(bean);
   }
-
 }

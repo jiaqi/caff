@@ -1,6 +1,7 @@
 package org.cyclopsgroup.caff.ref.test;
 
 import static com.google.common.truth.Truth.assertThat;
+
 import java.util.function.Supplier;
 import org.cyclopsgroup.caff.ref.ValueReference;
 import org.junit.Test;
@@ -54,11 +55,7 @@ public class PropertyValueReferenceTest {
     verifyPropertyAccess(o, () -> o.privateField, "privateField");
   }
 
-  /**
-   * Verify property value reference correctly reference getter and setter
-   * 
-   * @throws Exception Allows all exceptions
-   */
+  /** Verify property value reference correctly reference getter and setter */
   @Test
   public void testPublicAccess() {
     PublicType o = new PublicType();

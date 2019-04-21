@@ -2,13 +2,12 @@ package org.cyclopsgroup.caff.format;
 
 import java.io.IOException;
 import java.nio.CharBuffer;
-
 import org.cyclopsgroup.caff.CharIterator;
 
 /**
  * A general class that knows how to parse CSV syntax
  *
- * TODO Trailing white space isn't handled yet
+ * <p>TODO Trailing white space isn't handled yet
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
@@ -37,8 +36,11 @@ public abstract class CSVParser {
   }
 
   private static enum ParsingState {
-    ESCAPING, QUOTING, START, WORD;
-  };
+    ESCAPING,
+    QUOTING,
+    START,
+    WORD;
+  }
 
   private static final int BUFFER_SIZE = 100;
 

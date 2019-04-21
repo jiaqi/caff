@@ -15,9 +15,7 @@ import org.cyclopsgroup.caff.CharIterator;
 public class CSVFormat<T> extends Format<T> {
   private final CSVImpl<T> impl;
 
-  /**
-   * @param beanType Type of bean to format or parse
-   */
+  /** @param beanType Type of bean to format or parse */
   public CSVFormat(Class<T> beanType) {
     super(beanType);
     impl = new CSVImpl<T>(beanType);

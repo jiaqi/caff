@@ -16,13 +16,9 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD, ElementType.METHOD})
 @ConversionSupport(factoryType = BooleanConverterFactory.class)
 public @interface BooleanField {
-  /**
-   * @return String form for true value
-   */
+  /** @return String form for true value */
   String yes() default "yes";
 
-  /**
-   * @return String form for false value
-   */
+  /** @return String form for false value */
   String no() default "no";
 }

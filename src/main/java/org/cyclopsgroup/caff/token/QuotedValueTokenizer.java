@@ -7,21 +7,13 @@ package org.cyclopsgroup.caff.token;
  */
 public class QuotedValueTokenizer implements ValueTokenizer {
   private enum ParsingState {
-    /**
-     * Ready for escaping next character or end a quoted segment
-     */
+    /** Ready for escaping next character or end a quoted segment */
     ESCAPED_OR_QUOTE_END,
-    /**
-     * Quotation started
-     */
+    /** Quotation started */
     QUOTED,
-    /**
-     * Ready for new word
-     */
+    /** Ready for new word */
     READY,
-    /**
-     * Word started without quotation
-     */
+    /** Word started without quotation */
     WORD_STARTED;
   }
 
@@ -29,9 +21,7 @@ public class QuotedValueTokenizer implements ValueTokenizer {
 
   private final char quotation;
 
-  /**
-   * Default constructor that uses white space as delimiter and &quot; as quotation character
-   */
+  /** Default constructor that uses white space as delimiter and &quot; as quotation character */
   public QuotedValueTokenizer() {
     this(' ', '\"');
   }
@@ -100,11 +90,13 @@ public class QuotedValueTokenizer implements ValueTokenizer {
       }
     }
     if (buf != null) {
-      handler.handleEvent(new TokenEvent(buf.toString(), wordStart, input.length(), false,
-          state == ParsingState.QUOTED));
+      handler.handleEvent(
+          new TokenEvent(
+              buf.toString(), wordStart, input.length(), false, state == ParsingState.QUOTED));
     }
   }
 
+  @Override
   public String escape(String output) {
     int d = output.indexOf(delimiter);
     int q = output.indexOf(quotation);
@@ -113,7 +105,7 @@ public class QuotedValueTokenizer implements ValueTokenizer {
       return output;
     }
     StringBuffer sb = new StringBuffer().append(quotation);
-    for (int i = 0, j = 0; i < output.length();) {
+    for (int i = 0, j = 0; i < output.length(); ) {
       j = output.indexOf(quotation, i);
       if (j == -1) {
         sb.append(output.substring(i));

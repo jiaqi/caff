@@ -8,17 +8,11 @@ import org.cyclopsgroup.caff.NormalizedValue;
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public enum NormalizedEnum implements NormalizedValue<Integer> {
-  /**
-   * With ID <code>1</code>
-   */
+  /** With ID <code>1</code> */
   X(1),
-  /**
-   * With ID <code>2</code>
-   */
+  /** With ID <code>2</code> */
   Y(2),
-  /**
-   * With ID <code>3</code>
-   */
+  /** With ID <code>3</code> */
   Z(3);
   private final int id;
 

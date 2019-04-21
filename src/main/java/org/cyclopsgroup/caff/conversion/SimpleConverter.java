@@ -15,6 +15,7 @@ import java.util.Map;
  */
 public class SimpleConverter<T> implements Converter<T> {
   private static final Map<Class<?>, Class<?>> PRIMITIVE_TYPES;
+
   static {
     Map<Class<?>, Class<?>> primitiveTypes = new HashMap<Class<?>, Class<?>>();
     primitiveTypes.put(Boolean.TYPE, Boolean.class);
@@ -28,17 +29,17 @@ public class SimpleConverter<T> implements Converter<T> {
 
   private final Converter<T> proxy;
 
+  @Override
   public T fromCharacters(CharSequence text) {
     return proxy.fromCharacters(text);
   }
 
+  @Override
   public CharSequence toCharacters(T value) {
     return proxy.toCharacters(value);
   }
 
-  /**
-   * @param type Type of value to convert from/to
-   */
+  /** @param type Type of value to convert from/to */
   @SuppressWarnings({"unchecked", "rawtypes"})
   public SimpleConverter(Class<T> type) {
     if (type == null) {
@@ -53,14 +54,14 @@ public class SimpleConverter<T> implements Converter<T> {
       p = (Converter<T>) new CharArrayConverter();
     } else if (type.isPrimitive()) {
       if (PRIMITIVE_TYPES.containsKey(type)) {
-        p = (Converter<T>) new SimpleReflectiveConverter<T>((Class<T>) PRIMITIVE_TYPES.get(type));
+        p = new SimpleReflectiveConverter<T>((Class<T>) PRIMITIVE_TYPES.get(type));
       } else {
         throw new IllegalArgumentException("Type " + type + " is not supported by " + getClass());
       }
     } else if (type.isEnum()) {
-      p = (Converter<T>) new EnumConverter(type);
+      p = new EnumConverter(type);
     } else {
-      p = (Converter<T>) new SimpleReflectiveConverter<T>(type);
+      p = new SimpleReflectiveConverter<T>(type);
     }
     this.proxy = new NullFriendlyConverter<T>(p);
   }

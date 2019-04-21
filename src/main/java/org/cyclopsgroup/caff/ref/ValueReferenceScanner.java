@@ -35,9 +35,7 @@ public class ValueReferenceScanner<T> {
 
   private final Class<T> beanType;
 
-  /**
-   * @param beanType Type of bean to scan
-   */
+  /** @param beanType Type of bean to scan */
   public ValueReferenceScanner(Class<T> beanType) {
     if (beanType == null) {
       throw new NullPointerException("Given bean type can't be NULL");
@@ -45,8 +43,8 @@ public class ValueReferenceScanner<T> {
     this.beanType = beanType;
   }
 
-  private <H extends Annotation> AccessibleObject findAnnotatedAccess(PropertyDescriptor desc,
-      Class<H> expectedAnnotation) {
+  private <H extends Annotation> AccessibleObject findAnnotatedAccess(
+      PropertyDescriptor desc, Class<H> expectedAnnotation) {
     Field field;
     try {
       field = beanType.getClass().getField(desc.getName());
@@ -70,8 +68,8 @@ public class ValueReferenceScanner<T> {
    * @param expectedAnnotation Only field or method annotated with this annotation is inspected
    * @param listener Listener to handle found references
    */
-  public <H extends Annotation> void scanForAnnotation(Class<H> expectedAnnotation,
-      Listener<T, H> listener) {
+  public <H extends Annotation> void scanForAnnotation(
+      Class<H> expectedAnnotation, Listener<T, H> listener) {
     BeanInfo beanInfo;
     try {
       beanInfo = Introspector.getBeanInfo(beanType);

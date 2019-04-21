@@ -17,9 +17,7 @@ public class EnumConverter<T extends Enum<T>> implements Converter<T> {
 
   private final Map<T, String> valueToString;
 
-  /**
-   * @param enumType Type of enum to convert
-   */
+  /** @param enumType Type of enum to convert */
   public EnumConverter(Class<T> enumType) {
     boolean normalized = NormalizedValue.class.isAssignableFrom(enumType);
     Map<String, T> stringValues = new HashMap<String, T>();

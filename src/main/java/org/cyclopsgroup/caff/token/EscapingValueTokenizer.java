@@ -7,17 +7,11 @@ package org.cyclopsgroup.caff.token;
  */
 public class EscapingValueTokenizer implements ValueTokenizer {
   private static enum ProcessingState {
-    /**
-     * Followd by escape character
-     */
+    /** Followd by escape character */
     ESCAPING,
-    /**
-     * Ready for new word
-     */
+    /** Ready for new word */
     READY,
-    /**
-     * Appending a word
-     */
+    /** Appending a word */
     WORD;
   }
 
@@ -47,7 +41,7 @@ public class EscapingValueTokenizer implements ValueTokenizer {
       return output;
     }
     StringBuffer sb = new StringBuffer();
-    for (int i = 0, j = 0; i < output.length();) {
+    for (int i = 0, j = 0; i < output.length(); ) {
       int e = output.indexOf(escaper, i);
       int d = output.indexOf(delimiter, i);
       if (e == -1 && d == -1) {
@@ -65,16 +59,12 @@ public class EscapingValueTokenizer implements ValueTokenizer {
     return sb.toString();
   }
 
-  /**
-   * @return Delimiter character
-   */
+  /** @return Delimiter character */
   public final char getDelimiter() {
     return delimiter;
   }
 
-  /**
-   * @return Escape character
-   */
+  /** @return Escape character */
   public final char getEscaper() {
     return escaper;
   }

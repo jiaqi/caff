@@ -45,37 +45,27 @@ public final class TokenEvent {
     this.quoted = quoted;
   }
 
-  /**
-   * @return One based position of last character in token
-   */
+  /** @return One based position of last character in token */
   public int getEnd() {
     return end;
   }
 
-  /**
-   * @return Zero based start position of token
-   */
+  /** @return Zero based start position of token */
   public int getStart() {
     return start;
   }
 
-  /**
-   * @return Value of token
-   */
+  /** @return Value of token */
   public String getToken() {
     return token;
   }
 
-  /**
-   * @return True if token is explicitly quoted
-   */
+  /** @return True if token is explicitly quoted */
   public boolean isQuoted() {
     return quoted;
   }
 
-  /**
-   * @return True if token is explicitly terminated
-   */
+  /** @return True if token is explicitly terminated */
   public boolean isTerminated() {
     return terminated;
   }

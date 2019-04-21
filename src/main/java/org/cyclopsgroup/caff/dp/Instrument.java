@@ -1,6 +1,5 @@
 package org.cyclopsgroup.caff.dp;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 
 public abstract class Instrument {
@@ -14,7 +13,7 @@ public abstract class Instrument {
 
   public abstract int close(String segment, PrintWriter out);
 
-  public void printText(String text, PrintWriter out) throws IOException {
+  public void printText(String text, PrintWriter out) {
     if (text.startsWith(LINE_START)) {
       text = " " + text.substring(LINE_START.length());
     }

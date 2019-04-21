@@ -15,13 +15,9 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FixLengthType {
-  /**
-   * @return Character that fills empty slots
-   */
+  /** @return Character that fills empty slots */
   char fill() default ' ';
 
-  /**
-   * @return Total length of fix length format
-   */
+  /** @return Total length of fix length format */
   int length();
 }

@@ -8,8 +8,6 @@ package org.cyclopsgroup.caff;
  * @param <T> Type of identifier
  */
 public interface NormalizedValue<T> {
-  /**
-   * @return Unified identifier of this value
-   */
+  /** @return Unified identifier of this value */
   T getIdentifier();
 }

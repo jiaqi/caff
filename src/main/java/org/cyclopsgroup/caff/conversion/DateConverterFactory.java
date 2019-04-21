@@ -4,9 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * @author <a href="mailto:jiaqi@cyclopsgroup.org">Jiaqi Guo</a>
- */
+/** @author <a href="mailto:jiaqi@cyclopsgroup.org">Jiaqi Guo</a> */
 public class DateConverterFactory implements ConverterFactory<Date> {
   private class DateConverter implements Converter<Date> {
     private final SimpleDateFormat formatter;
@@ -18,6 +16,7 @@ public class DateConverterFactory implements ConverterFactory<Date> {
       this.format = format;
     }
 
+    @Override
     public Date fromCharacters(CharSequence text) {
       try {
         return formatter.parse(text.toString());
@@ -26,6 +25,7 @@ public class DateConverterFactory implements ConverterFactory<Date> {
       }
     }
 
+    @Override
     public CharSequence toCharacters(Date value) {
       return formatter.format(value);
     }

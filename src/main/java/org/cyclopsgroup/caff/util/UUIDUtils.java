@@ -1,9 +1,7 @@
 package org.cyclopsgroup.caff.util;
 
-import java.util.UUID;
 import com.google.common.io.BaseEncoding;
-
-
+import java.util.UUID;
 
 /**
  * Utilities around {@link UUID}
@@ -24,7 +22,7 @@ public final class UUIDUtils {
       leastBits = ByteUtils.readLong(bytes, 8);
     }
     return new UUID(mostBits, leastBits);
-  };
+  }
 
   /**
    * Convert string into UUID. String is a compact base64 form of bits in UUID

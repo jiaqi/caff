@@ -1,8 +1,6 @@
 package org.cyclopsgroup.caff.dp.wiki;
 
-import java.io.IOException;
 import java.io.PrintWriter;
-
 import org.apache.commons.lang3.StringUtils;
 import org.cyclopsgroup.caff.dp.Instrument;
 
@@ -32,7 +30,7 @@ public class ListInstrument extends Instrument {
   }
 
   @Override
-  public void printText(String text, PrintWriter out) throws IOException {
+  public void printText(String text, PrintWriter out) {
     if (text.startsWith(PREFIX)) {
       out.print("</li><li>");
       text = StringUtils.removeStart(text, PREFIX);

@@ -11,9 +11,7 @@ import org.junit.Test;
  * @author <a href="mailto:jiaqi@cyclopsgroup.org">Jiaqi Guo</a>
  */
 public class UUIDUtilsTest {
-  /**
-   * Verify encoding and decoding for 100 times with random UUIDs
-   */
+  /** Verify encoding and decoding for 100 times with random UUIDs */
   @Test
   public void testHundredRandomIds() {
     for (int i = 0; i < 100; i++) {

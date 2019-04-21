@@ -6,9 +6,7 @@ package org.cyclopsgroup.caff.format;
  * @author <a href="mailto:jiaqi@cyclopsgroup.org">Jiaqi Guo</a>
  */
 public enum AlignPolicy {
-  /**
-   * Left is default value, truncate right.
-   */
+  /** Left is default value, truncate right. */
   LEFT {
     @Override
     CharSequence trim(CharSequence input, char empty) {
@@ -32,9 +30,7 @@ public enum AlignPolicy {
       }
     }
   },
-  /**
-   * Align right, truncate left.
-   */
+  /** Align right, truncate left. */
   RIGHT {
     @Override
     CharSequence trim(CharSequence input, char empty) {

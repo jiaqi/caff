@@ -10,9 +10,7 @@ import org.junit.Test;
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class CharArrayConverterTest {
-  /**
-   * Verify two way conversion
-   */
+  /** Verify two way conversion */
   @Test
   public void testConversion() {
     CharArrayConverter c = new CharArrayConverter();
