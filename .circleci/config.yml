@@ -15,8 +15,9 @@ jobs:
           paths:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
+      - run: mvn package source:jar javadoc:jar
       - run:
-          command: mvn package source:jar javadoc:jar
+          command: mvn deploy
           branches:
             only: master
           context: snapshot-deploy
