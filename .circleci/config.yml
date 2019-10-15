@@ -16,7 +16,11 @@ jobs:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
       - run: mvn package source:jar javadoc:jar
-      - run: mvn deploy
+      - run:
+          command: mvn deploy
+          branches:
+            only:
+              - master
 #  deploy:
 #    docker:
 #      - image: circleci/openjdk:8-jdk
@@ -30,8 +34,5 @@ workflows:
     jobs:
 #      - build
       - build:
-         branches:
-           only:
-             - master
-         context: snapshot-deploy
+          context: snapshot-deploy
 #         requires: build
