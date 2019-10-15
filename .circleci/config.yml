@@ -31,6 +31,7 @@ workflows:
 #      - build
       - build:
          branches:
-           only: master
+           only:
+             - master
          context: snapshot-deploy
 #         requires: build
