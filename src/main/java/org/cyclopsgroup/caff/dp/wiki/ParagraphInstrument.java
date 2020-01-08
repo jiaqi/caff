@@ -1,7 +1,6 @@
 package org.cyclopsgroup.caff.dp.wiki;
 
 import java.io.PrintWriter;
-
 import org.cyclopsgroup.caff.dp.Instrument;
 
 public class ParagraphInstrument extends Instrument {

@@ -1,11 +1,11 @@
 package org.cyclopsgroup.caff.ref;
 
+import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableList;
 
 /**
  * Implementation of value reference that based on a public field

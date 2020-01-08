@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.cyclopsgroup.caff.CharIterator;
 import org.junit.Test;
 

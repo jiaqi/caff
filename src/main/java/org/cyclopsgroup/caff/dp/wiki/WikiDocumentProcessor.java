@@ -5,7 +5,6 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.cyclopsgroup.caff.dp.DocumentProcessor;
 import org.cyclopsgroup.caff.dp.DummyInstrument;
 import org.cyclopsgroup.caff.dp.Instrument;

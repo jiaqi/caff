@@ -3,7 +3,6 @@ package org.cyclopsgroup.caff.format;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
-
 import org.cyclopsgroup.caff.CharIterator;
 
 /**

@@ -2,7 +2,6 @@ package org.cyclopsgroup.caff.format;
 
 import java.io.IOException;
 import java.io.StringWriter;
-
 import org.cyclopsgroup.caff.CharIterator;
 
 /**

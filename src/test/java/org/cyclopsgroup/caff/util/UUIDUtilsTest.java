@@ -2,6 +2,7 @@ package org.cyclopsgroup.caff.util;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertEquals;
+
 import java.util.UUID;
 import org.junit.Test;
 

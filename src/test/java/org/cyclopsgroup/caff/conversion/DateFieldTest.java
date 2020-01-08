@@ -6,7 +6,6 @@ import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import org.cyclopsgroup.caff.ABean;
 import org.junit.Before;
 import org.junit.Test;

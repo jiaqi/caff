@@ -1,13 +1,13 @@
 package org.cyclopsgroup.caff.ref;
 
+import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import javax.annotation.Nullable;
-import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableList;
 
 /**
  * Interface that allow to read a value from given owner or write value to owner

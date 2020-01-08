@@ -1,7 +1,6 @@
 package org.cyclopsgroup.caff;
 
 import java.util.Date;
-
 import org.cyclopsgroup.caff.conversion.BooleanField;
 import org.cyclopsgroup.caff.conversion.DateField;
 import org.cyclopsgroup.caff.format.AlignPolicy;

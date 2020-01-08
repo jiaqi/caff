@@ -1,7 +1,6 @@
 package org.cyclopsgroup.caff.format;
 
 import java.io.IOException;
-
 import org.cyclopsgroup.caff.ABean;
 
 /**

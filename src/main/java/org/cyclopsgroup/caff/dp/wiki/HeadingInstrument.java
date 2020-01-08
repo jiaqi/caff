@@ -1,9 +1,9 @@
 package org.cyclopsgroup.caff.dp.wiki;
 
+import com.google.common.base.Preconditions;
 import java.io.PrintWriter;
 import org.apache.commons.lang3.StringUtils;
 import org.cyclopsgroup.caff.dp.Instrument;
-import com.google.common.base.Preconditions;
 
 public class HeadingInstrument extends Instrument {
   private final int length;

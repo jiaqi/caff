@@ -1,7 +1,6 @@
 package org.cyclopsgroup.caff.format;
 
 import java.util.Date;
-
 import org.cyclopsgroup.caff.conversion.DateField;
 
 /**

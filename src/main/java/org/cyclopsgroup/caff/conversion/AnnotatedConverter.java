@@ -1,10 +1,10 @@
 package org.cyclopsgroup.caff.conversion;
 
+import com.google.common.collect.FluentIterable;
+import com.google.common.collect.ImmutableList;
 import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
-import com.google.common.collect.FluentIterable;
-import com.google.common.collect.ImmutableList;
 
 /**
  * Converter that converts based on rules defined in annotation

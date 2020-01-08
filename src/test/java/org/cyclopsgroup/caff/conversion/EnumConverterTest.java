@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 import java.lang.annotation.RetentionPolicy;
-
 import org.cyclopsgroup.caff.NormalizedValue;
 import org.junit.Test;
 
