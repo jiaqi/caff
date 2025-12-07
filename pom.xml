@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.cyclopsgroup</groupId>
     <artifactId>cyclopsgroup-java-parent</artifactId>
-    <version>0.7.2</version>
+    <version>0.7.3</version>
   </parent>
   <artifactId>caff</artifactId>
   <name>caff</name>
@@ -21,7 +21,12 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>29.0-android</version>
+      <version>33.5.0-android</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+      <version>3.0.2</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
