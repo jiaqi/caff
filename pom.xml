@@ -63,9 +63,15 @@
     <url>https://github.com/jiaqi/caff</url>
   </scm>
   <distributionManagement>
-    <site>
-      <id>cyclopsgroup.server</id>
-      <url>s3://${dist.bucketName}/projects/caff</url>
-    </site>
+    <snapshotRepository>
+      <id>github</id>
+      <name>GitHub jiaqi Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/jiaqi/caff</url>
+    </snapshotRepository>
+    <repository>
+      <id>github</id>
+      <name>GitHub jiaqi Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/jiaqi/caff</url>
+    </repository>
   </distributionManagement>
 </project>
