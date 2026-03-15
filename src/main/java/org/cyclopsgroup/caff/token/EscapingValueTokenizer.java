@@ -59,12 +59,16 @@ public class EscapingValueTokenizer implements ValueTokenizer {
     return sb.toString();
   }
 
-  /** @return Delimiter character */
+  /**
+   * @return Delimiter character
+   */
   public final char getDelimiter() {
     return delimiter;
   }
 
-  /** @return Escape character */
+  /**
+   * @return Escape character
+   */
   public final char getEscaper() {
     return escaper;
   }

@@ -35,7 +35,9 @@ public class ValueReferenceScanner<T> {
 
   private final Class<T> beanType;
 
-  /** @param beanType Type of bean to scan */
+  /**
+   * @param beanType Type of bean to scan
+   */
   public ValueReferenceScanner(Class<T> beanType) {
     if (beanType == null) {
       throw new NullPointerException("Given bean type can't be NULL");

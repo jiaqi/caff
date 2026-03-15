@@ -39,7 +39,9 @@ public class SimpleConverter<T> implements Converter<T> {
     return proxy.toCharacters(value);
   }
 
-  /** @param type Type of value to convert from/to */
+  /**
+   * @param type Type of value to convert from/to
+   */
   @SuppressWarnings({"unchecked", "rawtypes"})
   public SimpleConverter(Class<T> type) {
     if (type == null) {

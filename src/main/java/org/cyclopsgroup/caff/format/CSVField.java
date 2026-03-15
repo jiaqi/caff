@@ -15,7 +15,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD})
 public @interface CSVField {
-  /** @return Always wrap value with double quots */
+  /**
+   * @return Always wrap value with double quots
+   */
   boolean alwaysQuote() default false;
 
   /**
@@ -24,6 +26,8 @@ public @interface CSVField {
    */
   int maxLength() default -1;
 
-  /** @return Zero based position of field */
+  /**
+   * @return Zero based position of field
+   */
   int position();
 }

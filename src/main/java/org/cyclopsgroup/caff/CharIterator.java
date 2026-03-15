@@ -9,7 +9,9 @@ import java.io.Reader;
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public abstract class CharIterator {
-  /** @return True if there's remaining character to read */
+  /**
+   * @return True if there's remaining character to read
+   */
   public abstract boolean hasNext();
 
   /**
