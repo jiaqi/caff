@@ -25,8 +25,8 @@ To include in a `pom.xml` file.
     ...
 ```
 
-* [Javadoc](https://s3.us-east-1.amazonaws.com/dist.cyclopsgroup.org/projects/caff/apidocs/index.html)
-* [Maven reports](https://s3.us-east-1.amazonaws.com/dist.cyclopsgroup.org/projects/caff/index.html)
+* [Javadoc](https://jiaqi.github.io/caff/apidocs/index.html)
+* [Maven reports](https://jiaqi.github.io/caff/index.html)
 
 # Development guide
 
