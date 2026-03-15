@@ -4,7 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/** @author <a href="mailto:jiaqi@cyclopsgroup.org">Jiaqi Guo</a> */
+/**
+ * @author <a href="mailto:jiaqi@cyclopsgroup.org">Jiaqi Guo</a>
+ */
 public class DateConverterFactory implements ConverterFactory<Date> {
   private class DateConverter implements Converter<Date> {
     private final SimpleDateFormat formatter;

@@ -15,7 +15,9 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FixLengthField {
-  /** @return align left or right. */
+  /**
+   * @return align left or right.
+   */
   AlignPolicy align() default AlignPolicy.LEFT;
 
   /**
@@ -24,12 +26,18 @@ public @interface FixLengthField {
    */
   char fill() default 0;
 
-  /** @return number of characters in this field. */
+  /**
+   * @return number of characters in this field.
+   */
   int length();
 
-  /** @return 0 based starting position of field. */
+  /**
+   * @return 0 based starting position of field.
+   */
   int start();
 
-  /** @return the handle the value that is longer than limit. */
+  /**
+   * @return the handle the value that is longer than limit.
+   */
   TrimPolicy trim() default TrimPolicy.FORWARD;
 }

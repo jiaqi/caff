@@ -83,16 +83,24 @@ public abstract class ValueReference<T> {
    */
   public abstract ImmutableList<AnnotatedElement> getAnontatedElements();
 
-  /** @return A unique name for this holder */
+  /**
+   * @return A unique name for this holder
+   */
   public abstract String getName();
 
-  /** @return Type of value */
+  /**
+   * @return Type of value
+   */
   public abstract Class<?> getType();
 
-  /** @return True if value really is readable */
+  /**
+   * @return True if value really is readable
+   */
   public abstract boolean isReadable();
 
-  /** @return True if value really is writable */
+  /**
+   * @return True if value really is writable
+   */
   public abstract boolean isWritable();
 
   /**

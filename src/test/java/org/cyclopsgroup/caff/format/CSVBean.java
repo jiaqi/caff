@@ -20,36 +20,48 @@ public class CSVBean {
 
   private Date birthDay;
 
-  /** @return A date field with {@link DateField} */
+  /**
+   * @return A date field with {@link DateField}
+   */
   @DateField(format = "yyyyMMdd")
   @CSVField(position = 4)
   public Date getBirthDay() {
     return birthDay;
   }
 
-  /** @param birthDay A date field */
+  /**
+   * @param birthDay A date field
+   */
   public void setBirthDay(Date birthDay) {
     this.birthDay = birthDay;
   }
 
-  /** @return A string field */
+  /**
+   * @return A string field
+   */
   @CSVField(position = 1)
   public String getFirstName() {
     return firstName;
   }
 
-  /** @param firstName A string field */
+  /**
+   * @param firstName A string field
+   */
   public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
 
-  /** @return An integer field */
+  /**
+   * @return An integer field
+   */
   @CSVField(position = 3)
   public int getAge() {
     return age;
   }
 
-  /** @param age An integer field */
+  /**
+   * @param age An integer field
+   */
   public void setAge(int age) {
     this.age = age;
   }

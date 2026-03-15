@@ -18,7 +18,9 @@ public class SimpleReflectiveConverter<T> implements Converter<T> {
 
   private final Class<T> type;
 
-  /** @param type Type of value to convert from/to */
+  /**
+   * @param type Type of value to convert from/to
+   */
   public SimpleReflectiveConverter(Class<T> type) {
     this.type = type;
     try {

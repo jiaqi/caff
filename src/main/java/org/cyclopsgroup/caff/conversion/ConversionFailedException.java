@@ -16,7 +16,9 @@ public class ConversionFailedException extends RuntimeException {
     super(message, cause);
   }
 
-  /** @param message Message without a root cause */
+  /**
+   * @param message Message without a root cause
+   */
   public ConversionFailedException(String message) {
     super(message);
   }

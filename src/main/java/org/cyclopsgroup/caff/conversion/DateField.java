@@ -16,6 +16,8 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD, ElementType.METHOD})
 @ConversionSupport(factoryType = DateConverterFactory.class)
 public @interface DateField {
-  /** @return Simple date format of date syntax */
+  /**
+   * @return Simple date format of date syntax
+   */
   String format() default "yyyy-MM-dd'T'HH:mm:ss.SSS";
 }

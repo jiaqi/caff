@@ -17,7 +17,9 @@ class FieldValueReference<T> extends ValueReference<T> {
   private final Field field;
   private final boolean publicField;
 
-  /** @param field Reflection field object */
+  /**
+   * @param field Reflection field object
+   */
   FieldValueReference(Field field) {
     this.field = Preconditions.checkNotNull(field, "An input field is required.");
     this.publicField = (field.getModifiers() & Modifier.PUBLIC) > 0;

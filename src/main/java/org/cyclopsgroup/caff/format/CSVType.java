@@ -16,6 +16,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface CSVType {
-  /** @return Total number of fields in a line */
+  /**
+   * @return Total number of fields in a line
+   */
   int fields();
 }

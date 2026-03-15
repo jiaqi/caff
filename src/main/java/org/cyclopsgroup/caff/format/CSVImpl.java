@@ -48,7 +48,9 @@ class CSVImpl<T> {
 
   private final Map<Integer, Slot> slots;
 
-  /** @param beanType Type of bean to parse or format */
+  /**
+   * @param beanType Type of bean to parse or format
+   */
   CSVImpl(final Class<T> beanType) {
     CSVType typeAnnotation = beanType.getAnnotation(CSVType.class);
     if (typeAnnotation == null) {

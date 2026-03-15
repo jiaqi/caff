@@ -39,7 +39,9 @@ class FixLengthImpl<T> {
   /** Message level meta data */
   final FixLengthType type;
 
-  /** @param beanType type of bean to format/parse */
+  /**
+   * @param beanType type of bean to format/parse
+   */
   FixLengthImpl(Class<T> beanType) {
     FixLengthType type = beanType.getAnnotation(FixLengthType.class);
     if (type == null) {

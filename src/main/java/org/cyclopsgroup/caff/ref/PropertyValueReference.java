@@ -26,7 +26,9 @@ class PropertyValueReference<T> extends ValueReference<T> {
   private final Method writer;
   private final boolean writerPublic;
 
-  /** @param descriptor Property descriptor of property */
+  /**
+   * @param descriptor Property descriptor of property
+   */
   PropertyValueReference(PropertyDescriptor descriptor) {
     this(
         descriptor.getName(),

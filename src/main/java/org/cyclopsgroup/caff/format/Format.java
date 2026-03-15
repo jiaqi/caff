@@ -16,7 +16,9 @@ import org.cyclopsgroup.caff.CharArrayCharSequence;
 public abstract class Format<T> {
   private final Class<T> beanType;
 
-  /** @param beanType Type of bean to format or parse */
+  /**
+   * @param beanType Type of bean to format or parse
+   */
   protected Format(Class<T> beanType) {
     if (beanType == null) {
       throw new NullPointerException("Type of bean can't be NULL");
@@ -24,7 +26,9 @@ public abstract class Format<T> {
     this.beanType = beanType;
   }
 
-  /** @return A new instance of bean */
+  /**
+   * @return A new instance of bean
+   */
   final T createBean() {
     try {
       return beanType.newInstance();

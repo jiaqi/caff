@@ -11,6 +11,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.ANNOTATION_TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ConversionSupport {
-  /** @return Type of converter factory that manages converter */
+  /**
+   * @return Type of converter factory that manages converter
+   */
   Class<? extends ConverterFactory<?>> factoryType();
 }
